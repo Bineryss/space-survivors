@@ -4,18 +4,33 @@ class_name  HealthComponent
 signal health_depleated
 
 @export var max_health := 10
+@export var display_timer := 0
 
-@onready var healthBar = %HealthBar
+@onready var health_bar = %HealthBar
+@onready var timer = $Timer
 
 var health: float
 
 func _ready() -> void:
 	health = max_health
-	healthBar.max_value = max_health
-	healthBar.value = health
+	health_bar.max_value = max_health
+	health_bar.value = health
+	timer.wait_time = display_timer
 	
 func damage(attack: int) -> void:
 	health -= attack
-	healthBar.value = health
+	health_bar.value = health
+	show_health_bar()
+	if display_timer > 0:
+		timer.start()
 	if health <= 0:
 		health_depleated.emit()
+
+func show_health_bar() -> void:
+	health_bar.show()
+	
+func hide_health_bar() -> void:
+	health_bar.hide()
+
+func _on_timer_timeout() -> void:
+	health_bar.hide()

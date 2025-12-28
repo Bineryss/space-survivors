@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://cxsr2qwvoy5wf"]
+
+[ext_resource type="Script" uid="uid://dv85yq661b3pv" path="res://systems/objects/astroid.gd" id="1_2u1v8"]
+[ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_mnnud"]
+[ext_resource type="PackedScene" uid="uid://cap3mkr0orqlm" path="res://components/hurt-box/hurt_box.tscn" id="2_nctfb"]
+[ext_resource type="PackedScene" uid="uid://kql27qacgpr8" path="res://components/health/health.tscn" id="2_yl2m3"]
+[ext_resource type="Texture2D" uid="uid://wyn1ptvi6h4e" path="res://assets/glowing_circle.png" id="5_br8as"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yl2m3"]
+radius = 39.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_us8gy"]
+radius = 52.23983
+
+[sub_resource type="Gradient" id="Gradient_w0tq6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cigiw"]
+gradient = SubResource("Gradient_w0tq6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3noiq"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 80.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 9.999997
+radial_accel_max = 99.99999
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_cigiw")
+
+[node name="Astroid" type="StaticBody2D"]
+script = ExtResource("1_2u1v8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mnnud")
+hframes = 8
+vframes = 6
+frame = 34
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yl2m3")
+
+[node name="HurtBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_nctfb")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_us8gy")
+debug_color = Color(0.76862746, 0.11372549, 0.23921569, 0.14901961)
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_yl2m3")]
+position = Vector2(0, 75)
+
+[node name="DestructionParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+texture = ExtResource("5_br8as")
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_3noiq")
+
+[connection signal="health_depleated" from="HealthComponent" to="." method="_on_health_component_health_depleated"]

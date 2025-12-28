@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfuqottnatk4c"]
+
+[ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
+[ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
+[ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/objects/astroid.tscn" id="3_h2yge"]
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+glow_enabled = true
+
+[node name="Game" type="Node2D"]
+
+[node name="Parallax2D" parent="." instance=ExtResource("1_lkhdi")]
+scroll_offset = Vector2(134, 52)
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." instance=ExtResource("2_lkhdi")]
+rotation = -3.0707538
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Astroid" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(-440, -439)
+
+[node name="Astroid2" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(-192, -514)
+
+[node name="Astroid3" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(-483, 51)
+
+[node name="Astroid4" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(-348, 170)
+
+[node name="Astroid5" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(-291, -14)
+
+[node name="Astroid6" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(-727, -188)
+
+[node name="Astroid7" parent="Node2D" instance=ExtResource("3_h2yge")]
+position = Vector2(147, 375)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h2yge")

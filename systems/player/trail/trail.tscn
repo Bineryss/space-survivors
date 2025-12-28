@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://5uabiylb267u"]
+
+[ext_resource type="Script" uid="uid://cr5xh45rakt2w" path="res://systems/player/trail/trail.gd" id="1_ffgrh"]
+
+[sub_resource type="Curve" id="Curve_q27vv"]
+_data = [Vector2(0.9969666, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[node name="TrailPoint" type="Marker2D"]
+
+[node name="Trail" type="Line2D" parent="."]
+modulate = Color(0, 0.64705884, 1, 1)
+top_level = true
+width = 20.0
+width_curve = SubResource("Curve_q27vv")
+joint_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_ffgrh")
+max_points = 40

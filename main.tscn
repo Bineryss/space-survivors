@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
-[ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/objects/astroid.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/entities/astroid.tscn" id="3_h2yge"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 glow_enabled = true

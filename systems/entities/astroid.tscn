@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cxsr2qwvoy5wf"]
 
-[ext_resource type="Script" uid="uid://dv85yq661b3pv" path="res://systems/objects/astroid.gd" id="1_2u1v8"]
+[ext_resource type="Script" uid="uid://dv85yq661b3pv" path="res://systems/entities/astroid.gd" id="1_2u1v8"]
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_mnnud"]
 [ext_resource type="PackedScene" uid="uid://cap3mkr0orqlm" path="res://components/hurt-box/hurt_box.tscn" id="2_nctfb"]
 [ext_resource type="PackedScene" uid="uid://kql27qacgpr8" path="res://components/health/health.tscn" id="2_yl2m3"]

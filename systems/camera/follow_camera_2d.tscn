@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cargs08g77u5b"]
+
+[ext_resource type="Script" uid="uid://d3ilqflfbc4fa" path="res://systems/camera/camera_2d.gd" id="1_iokl7"]
+
+[node name="FollowCamera2D" type="Camera2D"]
+top_level = true
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("1_iokl7")

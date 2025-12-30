@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://ka4whp2e3gxd"]
+
+[ext_resource type="PackedScene" uid="uid://cargs08g77u5b" path="res://systems/camera/follow_camera_2d.tscn" id="1_nyp7n"]
+[ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="2_ew23l"]
+[ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="3_5sxvl"]
+[ext_resource type="Script" uid="uid://0kgn7thb6st3" path="res://systems/camera/move.gd" id="4_gfedc"]
+[ext_resource type="Script" uid="uid://r247cmlbl0vg" path="res://systems/camera/move_by_process.gd" id="5_gfedc"]
+[ext_resource type="Script" uid="uid://b1cne86uff4o" path="res://systems/camera/physical_movement.gd" id="6_leuj3"]
+[ext_resource type="Script" uid="uid://dwyxytqqrou83" path="res://systems/camera/draw_debug_cross.gd" id="6_m0ajk"]
+[ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="8_5217a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m0ajk"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Parallax2D" parent="." instance=ExtResource("2_ew23l")]
+metadata/_edit_lock_ = true
+
+[node name="1000" type="Node2D" parent="."]
+modulate = Color(3.5616756e-06, 0.6279333, 0.84756523, 1)
+position = Vector2(0, -406)
+script = ExtResource("4_gfedc")
+
+[node name="Sprite2D" type="Sprite2D" parent="1000"]
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="0" type="Node2D" parent="."]
+script = ExtResource("4_gfedc")
+speed = 0
+direction = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="0"]
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="200" type="Node2D" parent="."]
+modulate = Color(3.3691526e-07, 0.77790207, 0.2874895, 1)
+position = Vector2(0, 273)
+script = ExtResource("4_gfedc")
+speed = 200
+
+[node name="Sprite2D" type="Sprite2D" parent="200"]
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="-200" type="Node2D" parent="."]
+modulate = Color(0.6688759, 0.5315261, 1.92523e-07, 1)
+position = Vector2(0, 393)
+script = ExtResource("4_gfedc")
+speed = 200
+direction = Vector2(-1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="-200"]
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="300" type="Node2D" parent="."]
+modulate = Color(0.8650231, 0.34347066, 1, 1)
+position = Vector2(0, -158)
+script = ExtResource("4_gfedc")
+speed = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="300"]
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="450" type="RigidBody2D" parent="."]
+modulate = Color(0.8650231, 0.34347066, 1, 1)
+position = Vector2(0, 146)
+script = ExtResource("6_leuj3")
+
+[node name="Sprite2D" type="Sprite2D" parent="450"]
+modulate = Color(1, 0.37116417, 0.2680997, 1)
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="450"]
+shape = SubResource("CircleShape2D_m0ajk")
+
+[node name="600" type="Node2D" parent="."]
+modulate = Color(0.6230969, 0.53068244, 1, 1)
+position = Vector2(0, -274)
+script = ExtResource("4_gfedc")
+speed = 600
+
+[node name="Sprite2D" type="Sprite2D" parent="600"]
+texture = ExtResource("3_5sxvl")
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+position_smoothing_speed = 10.0
+script = ExtResource("5_gfedc")
+speed = 450
+
+[node name="Player" parent="." instance=ExtResource("8_5217a")]
+
+[node name="FollowCamera2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_nyp7n")]
+position = Vector2(3, 1)
+target = NodePath("../Player")
+lookahead_distance = 500.0
+
+[node name="Node2D" type="Node2D" parent="FollowCamera2D"]
+position = Vector2(-3, -1)
+script = ExtResource("6_m0ajk")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfuqottnatk4c"]
+[gd_scene load_steps=6 format=3 uid="uid://dfuqottnatk4c"]
 
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/entities/astroid.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cargs08g77u5b" path="res://systems/camera/follow_camera_2d.tscn" id="4_1bvp3"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 glow_enabled = true
@@ -19,6 +20,7 @@ rotation = -3.0707538
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Astroid" parent="Node2D" instance=ExtResource("3_h2yge")]
+modulate = Color(0.81503576, 0.0020763606, 0.9837455, 1)
 position = Vector2(-440, -439)
 
 [node name="Astroid2" parent="Node2D" instance=ExtResource("3_h2yge")]
@@ -41,3 +43,7 @@ position = Vector2(147, 375)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h2yge")
+
+[node name="FollowCamera2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_1bvp3")]
+target = NodePath("../Player")
+lookahead_distance = 300.0

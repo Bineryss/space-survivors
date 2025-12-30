@@ -22,4 +22,3 @@ func _on_health_component_health_depleated() -> void:
 	desctruction_particels.restart()
 	await desctruction_particels.finished
 	queue_free()
-	

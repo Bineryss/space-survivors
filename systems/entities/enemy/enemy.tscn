@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://chvwf0j5xtupr"]
+
+[ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_t3d12"]
+[ext_resource type="Script" uid="uid://bspd2sh6as53a" path="res://systems/entities/enemy/enemy.gd" id="1_w2wpc"]
+[ext_resource type="PackedScene" uid="uid://kql27qacgpr8" path="res://components/health/health.tscn" id="2_6il8f"]
+[ext_resource type="PackedScene" uid="uid://cap3mkr0orqlm" path="res://components/hurt-box/hurt_box.tscn" id="3_w2wpc"]
+[ext_resource type="Script" uid="uid://kcdub4ue40sc" path="res://systems/state-machine/state-machine.gd" id="5_gvmk8"]
+[ext_resource type="Script" uid="uid://dgrfym31agim3" path="res://systems/entities/enemy/states/enemy_idle.gd" id="6_yvuke"]
+[ext_resource type="Script" uid="uid://c7w8kpi0prrri" path="res://systems/entities/enemy/states/enemy_move_in_range_of_target.gd" id="7_x5pdt"]
+[ext_resource type="Script" uid="uid://dkd6wveedw3io" path="res://systems/entities/enemy/states/enemy-circle.gd" id="8_g54yo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gvmk8"]
+radius = 49.162994
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2e6b"]
+radius = 71.00704
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x5pdt"]
+radius = 444.6268
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g54yo"]
+radius = 801.10547
+
+[node name="Enemy" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_w2wpc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.0012587615
+shape = SubResource("CircleShape2D_gvmk8")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_6il8f")]
+position = Vector2(0, 81)
+
+[node name="HurtBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_w2wpc")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_w2e6b")
+debug_color = Color(0.76862746, 0.11372549, 0.23921569, 0.14901961)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.99999994, 0.12724361, 0.55165464, 1)
+rotation = 1.5707964
+texture = ExtResource("1_t3d12")
+hframes = 8
+vframes = 6
+frame = 2
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_gvmk8")
+initial_state = NodePath("EnemyIdle")
+metadata/_custom_type_script = "uid://kcdub4ue40sc"
+
+[node name="EnemyIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "follow_state")]
+script = ExtResource("6_yvuke")
+enemy = NodePath("../..")
+follow_state = NodePath("../MoveInRangeOfTarget")
+metadata/_custom_type_script = "uid://dgrfym31agim3"
+
+[node name="MoveInRangeOfTarget" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "idle_state", "attack_state") groups=["player"]]
+script = ExtResource("7_x5pdt")
+enemy = NodePath("../..")
+idle_state = NodePath("../EnemyIdle")
+attack_state = NodePath("../EnemyCircle")
+metadata/_custom_type_script = "uid://c7w8kpi0prrri"
+
+[node name="EnemyCircle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "follow_state", "idle_state")]
+script = ExtResource("8_g54yo")
+enemy = NodePath("../..")
+follow_state = NodePath("../MoveInRangeOfTarget")
+idle_state = NodePath("../EnemyIdle")
+metadata/_custom_type_script = "uid://dkd6wveedw3io"
+
+[node name="ShootingRange" type="Area2D" parent="."]
+rotation = 0.0012587615
+
+[node name="ShootingRange" type="CollisionShape2D" parent="ShootingRange"]
+rotation = -0.0012587615
+shape = SubResource("CircleShape2D_x5pdt")
+debug_color = Color(0, 0.64337933, 0.32635304, 0.11764706)
+
+[node name="VisionArea" type="Area2D" parent="."]
+
+[node name="DetectionRange" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_g54yo")
+debug_color = Color(0.9986586, 0.8126325, 1.1551381e-06, 0.050980393)
+
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]

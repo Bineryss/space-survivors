@@ -1,6 +1,8 @@
 @abstract
 class_name State extends Node
 
+var context: EnemyContext
+
 func enter() -> void:
 	pass
 

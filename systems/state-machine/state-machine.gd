@@ -2,10 +2,19 @@ extends Node
 class_name StateMachine
 
 @export var initial_state: State
-var current_state: State
 
-func _ready() -> void:
-	current_state = initial_state
+var current_state: State
+var context: EnemyContext
+
+func init(actor: CharacterBody2D) -> void:
+	context = EnemyContext.new()
+	context.actor = actor
+	
+	for child in get_children():
+		if child is State:
+			child.context = context
+	change_state(initial_state)
+	
 
 func _process(delta: float) -> void:
 	tick(false, delta)

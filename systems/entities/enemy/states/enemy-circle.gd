@@ -9,7 +9,7 @@ var shoot_timer: float = 0.0
 var desired_distance: float = 0.0
 
 func enter() -> void:
-	shoot_timer = 0.5 # Shoot shortly after entering
+	shoot_timer = 0.5
 
 func physics_update(delta: float) -> State:
 	if not context.target:
@@ -19,23 +19,16 @@ func physics_update(delta: float) -> State:
 	if context.in_range:
 		desired_distance = distance
 	
-	# TRANSITION: If player runs away, chase them again
-	# We add a buffer (e.g. + 20) to prevent rapid flickering between states
 	if distance > desired_distance + 20.0:
 		return follow_state
 
-	# LOGIC 1: Circle/Strafe
-	# Calculate vector pointing to player
 	var dir_to_player = (context.target.global_position - context.actor.global_position).normalized()
 	
-	# Calculate a vector perpendicular to the player (Cross product / Orthogonal)
-	# This creates the "circling" movement
 	var strafe_dir = Vector2(-dir_to_player.y, dir_to_player.x) 
 	
 	context.actor.velocity = strafe_dir * move_speed
 	context.actor.look_at(context.target.global_position)
 	
-	# LOGIC 2: Shooting
 	shoot_timer -= delta
 	if shoot_timer <= 0:
 		shoot()
@@ -44,5 +37,4 @@ func physics_update(delta: float) -> State:
 	return null
 
 func shoot() -> void:
-	# Implement your bullet instantiation here
 	print("Bang!")

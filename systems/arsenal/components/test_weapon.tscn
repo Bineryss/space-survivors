@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://dn8ko6x06xjh5"]
+
+[ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_ll1c4"]
+[ext_resource type="Script" uid="uid://djwvaonv6vksu" path="res://systems/arsenal/components/test_weapon.gd" id="1_nq5uu"]
+[ext_resource type="Script" uid="uid://dra851wihmp0k" path="res://systems/arsenal/components/test_weapon_rotate.gd" id="2_innl1"]
+[ext_resource type="PackedScene" uid="uid://cpuucp5c8djki" path="res://systems/entities/enemy/enemy_bullet.tscn" id="3_hbxyt"]
+[ext_resource type="Script" uid="uid://y5du5mbrsaoc" path="res://systems/arsenal/strategies/spawn/spawn_salvo_spread.gd" id="4_innl1"]
+[ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="4_ll1c4"]
+
+[sub_resource type="Resource" id="Resource_innl1"]
+script = ExtResource("4_ll1c4")
+metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+
+[sub_resource type="Resource" id="Resource_kpy8x"]
+script = ExtResource("4_innl1")
+spread = SubResource("Resource_innl1")
+metadata/_custom_type_script = "uid://y5du5mbrsaoc"
+
+[node name="TestWeapon" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Pellet_Container" type="Node2D" parent="."]
+
+[node name="Player" type="Sprite2D" parent="."]
+texture = ExtResource("1_ll1c4")
+hframes = 8
+vframes = 6
+frame = 8
+script = ExtResource("2_innl1")
+
+[node name="WeaponSystem" type="Marker2D" parent="Player" node_paths=PackedStringArray("bullet_root")]
+position = Vector2(0, -107)
+rotation = -1.5707964
+script = ExtResource("1_nq5uu")
+spawn_strategy = SubResource("Resource_kpy8x")
+bullet = ExtResource("3_hbxyt")
+bullet_root = NodePath("../../Pellet_Container")

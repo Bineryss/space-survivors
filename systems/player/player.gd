@@ -33,3 +33,5 @@ func handle_mouse_aim(delta: float) -> void:
 	var target_angle = (get_global_mouse_position() - global_position).angle()
 	rotation = lerp_angle(rotation, target_angle, angular_speed * delta)
 	
+func _on_health_component_health_depleated() -> void:
+	print("player death")

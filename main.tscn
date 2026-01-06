@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
+[ext_resource type="PackedScene" uid="uid://bq0j4aaauwfem" path="res://systems/entities/enemy/enemy-spawn-radius.tscn" id="3_7mycd"]
 [ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/entities/astroid.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cargs08g77u5b" path="res://systems/camera/follow_camera_2d.tscn" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://chvwf0j5xtupr" path="res://systems/entities/enemy/enemy.tscn" id="5_lquwl"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 glow_enabled = true
@@ -17,6 +17,10 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_lkhdi")]
 rotation = -3.0707538
+
+[node name="EnemySpawner" parent="Player" node_paths=PackedStringArray("enemy_container") instance=ExtResource("3_7mycd")]
+rotation = 3.0707538
+enemy_container = NodePath("../../Enemies")
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -48,6 +52,4 @@ environment = SubResource("Environment_h2yge")
 target = NodePath("../Player")
 lookahead_distance = 300.0
 
-[node name="Enemy" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(867, -453)
-rotation = 2.5224926
+[node name="Enemies" type="Marker2D" parent="."]

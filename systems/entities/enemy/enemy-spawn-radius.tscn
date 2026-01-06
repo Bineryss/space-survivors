@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq0j4aaauwfem"]
+
+[ext_resource type="Script" uid="uid://b3pix2l6lsr4a" path="res://util/path_circle_tool.gd" id="1_gdkbn"]
+[ext_resource type="Script" uid="uid://djr0586x3q57" path="res://systems/entities/enemy/enemy_spawner.gd" id="1_tj66j"]
+[ext_resource type="PackedScene" uid="uid://chvwf0j5xtupr" path="res://systems/entities/enemy/enemy.tscn" id="2_m638d"]
+
+[sub_resource type="Curve2D" id="Curve2D_gdkbn"]
+_data = {
+"points": PackedVector2Array(-828.42706, 0, 828.42706, 0, 0, -1500, 0, -828.42706, 0, 828.42706, 1500, 0, 828.42706, 0, -828.42706, 0, 0, 1500, 0, 828.42706, 0, -828.42706, -1500, 0, -828.42706, 0, 828.42706, 0, 0, -1500)
+}
+point_count = 5
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_tj66j")
+enemy_instance = ExtResource("2_m638d")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_gdkbn")
+script = ExtResource("1_gdkbn")
+radius = 1500.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(0, -1500)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

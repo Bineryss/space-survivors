@@ -38,6 +38,7 @@ value = 50.0
 show_percentage = false
 
 [node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

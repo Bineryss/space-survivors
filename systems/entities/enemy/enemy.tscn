@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://chvwf0j5xtupr"]
+[gd_scene load_steps=19 format=3 uid="uid://chvwf0j5xtupr"]
 
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_t3d12"]
 [ext_resource type="Script" uid="uid://bspd2sh6as53a" path="res://systems/entities/enemy/enemy.gd" id="1_w2wpc"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://dgrfym31agim3" path="res://systems/entities/enemy/states/enemy_idle.gd" id="6_yvuke"]
 [ext_resource type="Script" uid="uid://c7w8kpi0prrri" path="res://systems/entities/enemy/states/enemy_move_in_range_of_target.gd" id="7_x5pdt"]
 [ext_resource type="Script" uid="uid://dkd6wveedw3io" path="res://systems/entities/enemy/states/enemy-circle.gd" id="8_g54yo"]
+[ext_resource type="Texture2D" uid="uid://wyn1ptvi6h4e" path="res://assets/glowing_circle.png" id="9_1pl2h"]
+[ext_resource type="Script" uid="uid://c3fpywa37mja6" path="res://systems/entities/enemy/enemy_gun.gd" id="10_i3dkx"]
+[ext_resource type="PackedScene" uid="uid://cpuucp5c8djki" path="res://systems/entities/enemy/enemy_bullet.tscn" id="11_y3kwv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvmk8"]
 radius = 49.162994
@@ -19,9 +22,31 @@ radius = 71.00704
 radius = 444.6268
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g54yo"]
-radius = 1166.1715
+radius = 1660.0244
+
+[sub_resource type="Gradient" id="Gradient_i3dkx"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cigiw"]
+gradient = SubResource("Gradient_i3dkx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y3kwv"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 80.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 9.999997
+radial_accel_max = 99.99999
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_cigiw")
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("state_machine")]
+collision_layer = 8
+collision_mask = 11
 motion_mode = 1
 script = ExtResource("1_w2wpc")
 state_machine = NodePath("StateMachine")
@@ -32,8 +57,10 @@ shape = SubResource("CircleShape2D_gvmk8")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_6il8f")]
 position = Vector2(0, 81)
+max_health = 3
 
 [node name="HurtBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_w2wpc")]
+collision_layer = 16
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -73,6 +100,7 @@ metadata/_custom_type_script = "uid://dkd6wveedw3io"
 [node name="ShootingRange" type="Area2D" parent="."]
 rotation = 0.0012587615
 collision_layer = 0
+collision_mask = 6
 
 [node name="ShootingRange" type="CollisionShape2D" parent="ShootingRange"]
 rotation = -0.0012587615
@@ -81,12 +109,32 @@ debug_color = Color(0, 0.64337933, 0.32635304, 0.11764706)
 
 [node name="VisionArea" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 6
 
 [node name="DetectionRange" type="CollisionShape2D" parent="VisionArea"]
 shape = SubResource("CircleShape2D_g54yo")
 debug_color = Color(0.9986586, 0.8126325, 1.1551381e-06, 0.050980393)
 
+[node name="DestructionParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+texture = ExtResource("9_1pl2h")
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_y3kwv")
+
+[node name="Gun" type="Node2D" parent="." node_paths=PackedStringArray("state_machine")]
+script = ExtResource("10_i3dkx")
+bullet = ExtResource("11_y3kwv")
+state_machine = NodePath("../StateMachine")
+
+[node name="Timer" type="Timer" parent="Gun"]
+autostart = true
+
+[node name="ShootingPoint" type="Marker2D" parent="Gun"]
+
+[connection signal="health_depleated" from="HealthComponent" to="." method="_on_health_component_health_depleated"]
 [connection signal="body_entered" from="ShootingRange" to="." method="_on_shooting_range_body_entered"]
 [connection signal="body_exited" from="ShootingRange" to="." method="_on_shooting_range_body_exited"]
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
+[connection signal="timeout" from="Gun/Timer" to="Gun" method="_on_timer_timeout"]

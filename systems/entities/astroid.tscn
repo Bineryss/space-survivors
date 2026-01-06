@@ -15,7 +15,7 @@ radius = 52.23983
 [sub_resource type="Gradient" id="Gradient_w0tq6"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cigiw"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_71lji"]
 gradient = SubResource("Gradient_w0tq6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3noiq"]
@@ -30,9 +30,11 @@ gravity = Vector3(0, 0, 0)
 radial_accel_min = 9.999997
 radial_accel_max = 99.99999
 scale_max = 5.0
-color_ramp = SubResource("GradientTexture1D_cigiw")
+color_ramp = SubResource("GradientTexture1D_71lji")
 
 [node name="Astroid" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 11
 script = ExtResource("1_2u1v8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -45,6 +47,7 @@ frame = 34
 shape = SubResource("CircleShape2D_yl2m3")
 
 [node name="HurtBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_nctfb")]
+collision_layer = 16
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]

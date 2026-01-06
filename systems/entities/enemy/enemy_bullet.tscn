@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpuucp5c8djki"]
+
+[ext_resource type="Script" uid="uid://b0asi46mu1i8u" path="res://enemy_bullet.gd" id="1_o3ren"]
+[ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="2_f18ro"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bid7n"]
+height = 38.0
+
+[node name="EnemyBullet" type="Area2D"]
+top_level = true
+rotation = -6.2831855
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_o3ren")
+speed = 1200
+bullet_range = 2500
+
+[node name="Projectile" type="Sprite2D" parent="."]
+modulate = Color(0.7985644, 0, 0.225324, 1)
+position = Vector2(7.629393e-06, 7.629395e-06)
+rotation = 1.5707964
+texture = ExtResource("2_f18ro")
+hframes = 8
+vframes = 6
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7.9999995, -1.3987659e-06)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_bid7n")

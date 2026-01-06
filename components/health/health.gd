@@ -7,7 +7,7 @@ signal health_depleated
 @export var display_timer := 0
 
 @onready var health_bar = %HealthBar
-@onready var timer = $Timer
+@onready var timer = %Timer # invincibility timer?
 
 var health: float
 

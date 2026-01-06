@@ -22,3 +22,8 @@ func _on_shooting_range_body_entered(body: Node2D) -> void:
 
 func _on_shooting_range_body_exited(body: Node2D) -> void:
 	if body is PlayerControler: state_machine.context.in_range = false
+
+
+func _on_health_component_health_depleated() -> void:
+	print("dead")
+	queue_free()

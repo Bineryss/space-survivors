@@ -1,0 +1,13 @@
+{
+  // --- Explorer cleanliness (Godot) ---
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.gd": "${capture}.gd.uid"
+  },
+
+  // Optional: reduce noise in Search results (still keeps files visible in Explorer)
+  "search.exclude": {
+    "**/*.gd.uid": true
+  }
+}

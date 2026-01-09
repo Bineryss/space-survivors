@@ -1,16 +1,28 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn8ko6x06xjh5"]
+[gd_scene load_steps=17 format=3 uid="uid://dn8ko6x06xjh5"]
 
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_ll1c4"]
 [ext_resource type="Script" uid="uid://djwvaonv6vksu" path="res://systems/arsenal/components/test_weapon.gd" id="1_nq5uu"]
 [ext_resource type="Script" uid="uid://dra851wihmp0k" path="res://systems/arsenal/components/test_weapon_rotate.gd" id="2_innl1"]
-[ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="4_ll1c4"]
 [ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="5_kpy8x"]
+[ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="5_uj0us"]
+[ext_resource type="Script" uid="uid://bu8emhpms8xea" path="res://systems/arsenal/strategies/despawn/despawn_time.gd" id="5_vicll"]
 [ext_resource type="PackedScene" uid="uid://dwrjn0x71j4cm" path="res://systems/arsenal/core/attack_actor.tscn" id="6_innl1"]
 [ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="7_3vo4y"]
+[ext_resource type="Script" uid="uid://dw1px2bffwx4t" path="res://systems/arsenal/strategies/spawn/spaw_salvo.gd" id="8_uj0us"]
+[ext_resource type="Script" uid="uid://1roeyw6o6hb1" path="res://components/mouse-follow/mouse_follow_2d.gd" id="9_oityq"]
+[ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/entities/astroid.tscn" id="10_uj0us"]
 
-[sub_resource type="Resource" id="Resource_kpy8x"]
-script = ExtResource("4_ll1c4")
-metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+[sub_resource type="Resource" id="Resource_o3f6c"]
+script = ExtResource("5_vicll")
+metadata/_custom_type_script = "uid://bu8emhpms8xea"
+
+[sub_resource type="Resource" id="Resource_tol6i"]
+script = ExtResource("5_uj0us")
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
+
+[sub_resource type="Resource" id="Resource_eg0l5"]
+script = ExtResource("8_uj0us")
+metadata/_custom_type_script = "uid://dw1px2bffwx4t"
 
 [sub_resource type="Resource" id="Resource_uj0us"]
 script = ExtResource("7_3vo4y")
@@ -19,8 +31,10 @@ metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
 [sub_resource type="Resource" id="Resource_vicll"]
 script = ExtResource("5_kpy8x")
 attack_actor_scene = ExtResource("6_innl1")
-spawn_strategy = SubResource("Resource_kpy8x")
+spawn_strategy = SubResource("Resource_eg0l5")
 trajectory_strategy = SubResource("Resource_uj0us")
+impact_strategy = SubResource("Resource_tol6i")
+despawn_strategy = SubResource("Resource_o3f6c")
 metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
 
 [node name="TestWeapon" type="Node2D"]
@@ -37,10 +51,15 @@ vframes = 6
 frame = 8
 script = ExtResource("2_innl1")
 
-[node name="WeaponSystem" type="Marker2D" parent="Player" node_paths=PackedStringArray("bullet_root")]
+[node name="WeaponSystem" type="Marker2D" parent="Player" node_paths=PackedStringArray("bullet_root", "target")]
 position = Vector2(0, -107)
 rotation = -1.5707964
 script = ExtResource("1_nq5uu")
-bullet = ExtResource("6_innl1")
 bullet_root = NodePath("../../Pellet_Container")
 weapon_data = SubResource("Resource_vicll")
+target = NodePath("../../Target")
+
+[node name="Target" type="Node2D" parent="."]
+script = ExtResource("9_oityq")
+
+[node name="Astroid" parent="Target" instance=ExtResource("10_uj0us")]

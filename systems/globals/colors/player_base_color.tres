@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ProjectileColor" load_steps=2 format=3 uid="uid://y0k3oppkljwe"]
+
+[ext_resource type="Script" uid="uid://3a40osc8k86a" path="res://systems/globals/projectile_color.gd" id="1_oho8i"]
+
+[resource]
+script = ExtResource("1_oho8i")
+metadata/_custom_type_script = "uid://3a40osc8k86a"

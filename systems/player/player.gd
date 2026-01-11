@@ -38,7 +38,7 @@ func handle_mouse_aim(delta: float) -> void:
 	rotation = lerp_angle(rotation, target_angle, angular_speed * delta)
 	
 func _on_health_component_health_depleated() -> void:
-	print("player death")
+	SignalBus.player_died.emit()
 
 
 func _on_shoot_timer_timeout() -> void:

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=13 format=3 uid="uid://dgswt2e1cjmhd"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=14 format=3 uid="uid://dgswt2e1cjmhd"]
 
 [ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="1_8tu5t"]
-[ext_resource type="PackedScene" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="1_sl57l"]
+[ext_resource type="PackedScene" uid="uid://box6kuu6ld7em" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="1_sl57l"]
 [ext_resource type="Script" uid="uid://bu8emhpms8xea" path="res://systems/arsenal/strategies/despawn/despawn_time.gd" id="2_1qhsp"]
 [ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="3_l2fh4"]
+[ext_resource type="Resource" uid="uid://bal46sos7pgmp" path="res://systems/globals/colors/enemy_color.tres" id="4_l2fh4"]
 [ext_resource type="Script" uid="uid://c4t3ib64mb8fb" path="res://systems/arsenal/strategies/spawn/spawn_single.gd" id="5_j5piu"]
 [ext_resource type="Script" uid="uid://bp41sbeejki6q" path="res://systems/arsenal/strategies/target/target_nearest_enemy.gd" id="6_1qhsp"]
 [ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="6_bf7x0"]
@@ -27,12 +28,14 @@ metadata/_custom_type_script = "uid://bp41sbeejki6q"
 
 [sub_resource type="Resource" id="Resource_vmri4"]
 script = ExtResource("6_bf7x0")
-speed = 400
+speed = 600
 metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
 
 [resource]
 script = ExtResource("1_8tu5t")
 attack_actor_scene = ExtResource("1_sl57l")
+projectile_color = ExtResource("4_l2fh4")
+collision_masks = 20
 target_strategy = SubResource("Resource_j5piu")
 spawn_strategy = SubResource("Resource_l2fh4")
 trajectory_strategy = SubResource("Resource_vmri4")

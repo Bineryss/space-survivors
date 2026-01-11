@@ -3,8 +3,9 @@ class_name Enemy extends CharacterBody2D
 @export var state_machine: StateMachine
 @export var enemy_data: EnemyData
 
-@onready var health_component: HealthComponent = $HealthComponent
-@onready var weapon_component: WeaponComponent = $WeaponComponent
+@onready var health_component: HealthComponent = %HealthComponent
+@onready var weapon_component: WeaponComponent = %WeaponComponent
+@onready var sprite: Sprite2D = %Sprite2D
 
 var projectile_root: Node2D
 
@@ -16,6 +17,8 @@ func _ready() -> void:
 	state_machine.init(self)
 	health_component.init(enemy_data.base_health)
 	weapon_component.init(projectile_root, enemy_data.weapon_data)
+	sprite.frame = enemy_data.enemy_sprite
+	sprite.modulate = enemy_data.enemy_color
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
@@ -37,9 +40,8 @@ func _on_shooting_range_body_exited(body: Node2D) -> void:
 
 
 func _on_health_component_health_depleated() -> void:
-	print("dead")
+	SignalBus.enemy_destroyed.emit()
 	queue_free()
 
 func _on_enemy_circle_fire_signal() -> void:
-	print("Enemy shooting")
 	weapon_component.try_shoot()

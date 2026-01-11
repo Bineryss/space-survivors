@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://dfuqottnatk4c"]
+[gd_scene load_steps=32 format=3 uid="uid://dfuqottnatk4c"]
 
+[ext_resource type="Script" uid="uid://h5w5803yndkk" path="res://main_loop.gd" id="1_074og"]
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://bq0j4aaauwfem" path="res://systems/entities/enemy/enemy-spawn-radius.tscn" id="3_7mycd"]
@@ -7,13 +8,16 @@
 [ext_resource type="PackedScene" uid="uid://box6kuu6ld7em" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="3_w48qg"]
 [ext_resource type="PackedScene" uid="uid://cargs08g77u5b" path="res://systems/camera/follow_camera_2d.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://c10pbiwdrdkls" path="res://systems/arsenal/strategies/despawn/despawn_distance.gd" id="4_ycdy4"]
+[ext_resource type="Resource" uid="uid://y0k3oppkljwe" path="res://systems/globals/colors/player_base_color.tres" id="6_2cqfq"]
 [ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="6_vivmo"]
 [ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="7_2cqfq"]
 [ext_resource type="Script" uid="uid://bp41sbeejki6q" path="res://systems/arsenal/strategies/target/target_nearest_enemy.gd" id="8_ycdy4"]
 [ext_resource type="Script" uid="uid://45esyuc5md05" path="res://systems/arsenal/strategies/trajectory/trajectory_homing.gd" id="9_w48qg"]
 [ext_resource type="Script" uid="uid://dw1px2bffwx4t" path="res://systems/arsenal/strategies/spawn/spaw_salvo.gd" id="10_ycdy4"]
 [ext_resource type="Script" uid="uid://ynac6ea0lf2e" path="res://systems/entities/enemy/enemy_data.gd" id="11_w48qg"]
-[ext_resource type="Resource" uid="uid://dgswt2e1cjmhd" path="res://systems/arsenal/weapons/t1_enemy_weapon.tres" id="12_vivmo"]
+[ext_resource type="Resource" uid="uid://frno1h07hbde" path="res://systems/entities/enemy/t1_enemy.tres" id="13_2cqfq"]
+[ext_resource type="Resource" uid="uid://b4rny5kk42eoa" path="res://systems/entities/enemy/t2_enemy.tres" id="14_yaehf"]
+[ext_resource type="Resource" uid="uid://bal46sos7pgmp" path="res://systems/globals/colors/enemy_color.tres" id="15_yaehf"]
 
 [sub_resource type="Resource" id="Resource_cegan"]
 script = ExtResource("4_ycdy4")
@@ -42,6 +46,8 @@ metadata/_custom_type_script = "uid://45esyuc5md05"
 [sub_resource type="Resource" id="Resource_xuqvo"]
 script = ExtResource("7_2cqfq")
 attack_actor_scene = ExtResource("3_w48qg")
+projectile_color = ExtResource("6_2cqfq")
+collision_masks = 144
 target_strategy = SubResource("Resource_2cqfq")
 spawn_strategy = SubResource("Resource_w48qg")
 trajectory_strategy = SubResource("Resource_vivmo")
@@ -49,14 +55,50 @@ impact_strategy = SubResource("Resource_efxa6")
 despawn_strategy = SubResource("Resource_cegan")
 metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
 
-[sub_resource type="Resource" id="Resource_yaehf"]
+[sub_resource type="Resource" id="Resource_074og"]
+script = ExtResource("4_ycdy4")
+metadata/_custom_type_script = "uid://c10pbiwdrdkls"
+
+[sub_resource type="Resource" id="Resource_82xsv"]
+script = ExtResource("6_vivmo")
+damage_amount = 2.0
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
+
+[sub_resource type="Resource" id="Resource_getpj"]
+script = ExtResource("10_ycdy4")
+delay = 0.1
+metadata/_custom_type_script = "uid://dw1px2bffwx4t"
+
+[sub_resource type="Resource" id="Resource_ryguw"]
+script = ExtResource("8_ycdy4")
+target_layers = 4
+metadata/_custom_type_script = "uid://bp41sbeejki6q"
+
+[sub_resource type="Resource" id="Resource_d13ii"]
+script = ExtResource("9_w48qg")
+metadata/_custom_type_script = "uid://45esyuc5md05"
+
+[sub_resource type="Resource" id="Resource_1u8w0"]
+script = ExtResource("7_2cqfq")
+attack_actor_scene = ExtResource("3_w48qg")
+projectile_color = ExtResource("15_yaehf")
+collision_masks = 4
+target_strategy = SubResource("Resource_ryguw")
+spawn_strategy = SubResource("Resource_getpj")
+trajectory_strategy = SubResource("Resource_d13ii")
+impact_strategy = SubResource("Resource_82xsv")
+despawn_strategy = SubResource("Resource_074og")
+metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
+
+[sub_resource type="Resource" id="Resource_0odxb"]
 script = ExtResource("11_w48qg")
-enemy_sprite = 2
-base_health = 3
-weapon_data = ExtResource("12_vivmo")
+enemy_color = Color(0.6691487, 0.50855654, 0, 1)
+base_speed = 1200.0
+weapon_data = SubResource("Resource_1u8w0")
 metadata/_custom_type_script = "uid://ynac6ea0lf2e"
 
 [node name="Game" type="Node"]
+script = ExtResource("1_074og")
 
 [node name="Parallax2D" parent="." instance=ExtResource("1_lkhdi")]
 scroll_offset = Vector2(134, 52)
@@ -67,9 +109,9 @@ weapon_data = SubResource("Resource_xuqvo")
 bullet_root = NodePath("../ProjectileContainer")
 
 [node name="EnemySpawner" parent="Player" node_paths=PackedStringArray("enemy_container", "projectile_root") instance=ExtResource("3_7mycd")]
+position = Vector2(-6, 3)
 rotation = 3.0707538
-spawn_interval = null
-enemy_data = SubResource("Resource_yaehf")
+enemy_data = Array[ExtResource("11_w48qg")]([ExtResource("13_2cqfq"), ExtResource("14_yaehf"), SubResource("Resource_0odxb")])
 enemy_container = NodePath("../../Enemies")
 projectile_root = NodePath("../../ProjectileContainer")
 

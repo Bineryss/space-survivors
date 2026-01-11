@@ -60,7 +60,7 @@ position = Vector2(0, 81)
 max_health = 3
 
 [node name="HurtBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_w2wpc")]
-collision_layer = 16
+collision_layer = 128
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -68,6 +68,7 @@ shape = SubResource("CircleShape2D_w2e6b")
 debug_color = Color(0.76862746, 0.11372549, 0.23921569, 0.14901961)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 modulate = Color(0.99999994, 0.12724361, 0.55165464, 1)
 rotation = 1.5707964
 texture = ExtResource("1_t3d12")

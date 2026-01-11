@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://frno1h07hbde"]
+
+[ext_resource type="Script" uid="uid://ynac6ea0lf2e" path="res://systems/entities/enemy/enemy_data.gd" id="1_d2nu7"]
+[ext_resource type="Resource" uid="uid://dgswt2e1cjmhd" path="res://systems/arsenal/weapons/t1_enemy_weapon.tres" id="2_plshi"]
+
+[resource]
+script = ExtResource("1_d2nu7")
+enemy_sprite = 2
+base_health = 2
+base_speed = 800.0
+weapon_data = ExtResource("2_plshi")
+metadata/_custom_type_script = "uid://ynac6ea0lf2e"

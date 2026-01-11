@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=14 format=3 uid="uid://bne458jlihic0"]
+
+[ext_resource type="PackedScene" uid="uid://box6kuu6ld7em" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="1_ocp4e"]
+[ext_resource type="Script" uid="uid://bu8emhpms8xea" path="res://systems/arsenal/strategies/despawn/despawn_time.gd" id="2_h3qcs"]
+[ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="3_2jom3"]
+[ext_resource type="Resource" uid="uid://bal46sos7pgmp" path="res://systems/globals/colors/enemy_color.tres" id="4_hf83a"]
+[ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="5_0rhcw"]
+[ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="6_ocp4e"]
+[ext_resource type="Script" uid="uid://bp41sbeejki6q" path="res://systems/arsenal/strategies/target/target_nearest_enemy.gd" id="7_5kx5m"]
+[ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="8_ln8nw"]
+
+[sub_resource type="Resource" id="Resource_m4asf"]
+script = ExtResource("2_h3qcs")
+max_lifetime = 10.0
+metadata/_custom_type_script = "uid://bu8emhpms8xea"
+
+[sub_resource type="Resource" id="Resource_7qfdk"]
+script = ExtResource("3_2jom3")
+damage_amount = 1.0
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
+
+[sub_resource type="Resource" id="Resource_h3qcs"]
+script = ExtResource("6_ocp4e")
+arc_degrees = 45.0
+metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+
+[sub_resource type="Resource" id="Resource_j5piu"]
+script = ExtResource("7_5kx5m")
+metadata/_custom_type_script = "uid://bp41sbeejki6q"
+
+[sub_resource type="Resource" id="Resource_vmri4"]
+script = ExtResource("8_ln8nw")
+speed = 400
+metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
+
+[resource]
+script = ExtResource("5_0rhcw")
+attack_actor_scene = ExtResource("1_ocp4e")
+projectile_color = ExtResource("4_hf83a")
+collision_masks = 20
+target_strategy = SubResource("Resource_j5piu")
+spawn_strategy = SubResource("Resource_h3qcs")
+trajectory_strategy = SubResource("Resource_vmri4")
+impact_strategy = SubResource("Resource_7qfdk")
+despawn_strategy = SubResource("Resource_m4asf")
+metadata/_custom_type_script = "uid://bvnf27hwmnk3m"

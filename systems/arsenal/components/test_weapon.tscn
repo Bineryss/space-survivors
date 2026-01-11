@@ -16,6 +16,7 @@ zoom = Vector2(0.5, 0.5)
 [node name="Pellet_Container" type="Node2D" parent="."]
 
 [node name="Player" type="Sprite2D" parent="."]
+rotation = 1.5707964
 texture = ExtResource("1_ll1c4")
 hframes = 8
 vframes = 6
@@ -23,6 +24,7 @@ frame = 8
 script = ExtResource("2_innl1")
 
 [node name="Arsenal" type="Node2D" parent="Player" node_paths=PackedStringArray("bullet_root", "target", "weapon_system")]
+rotation = -0.0034207515
 script = ExtResource("1_nq5uu")
 bullet_root = NodePath("../../Pellet_Container")
 weapon_data = ExtResource("4_kpy8x")
@@ -31,6 +33,7 @@ weapon_system = NodePath("WeaponComponent")
 
 [node name="WeaponComponent" parent="Player/Arsenal" instance=ExtResource("13_pbx41")]
 position = Vector2(0, -87)
+rotation = -1.5707964
 
 [node name="Target" type="Node2D" parent="."]
 script = ExtResource("9_oityq")

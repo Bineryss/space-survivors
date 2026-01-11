@@ -43,8 +43,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not collision_enabled: return
-	_impact.on_impact(self, _ctx, _data, area)
-	despawn(true)
+	if _impact.on_impact(self, _ctx, _data, area):
+		despawn(true)
 
 
 func despawn(_with_impact: bool = false) -> void:

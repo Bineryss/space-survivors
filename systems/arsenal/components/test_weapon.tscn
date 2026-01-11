@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_ll1c4"]
 [ext_resource type="Script" uid="uid://djwvaonv6vksu" path="res://systems/arsenal/components/test_weapon.gd" id="1_nq5uu"]
 [ext_resource type="Script" uid="uid://dra851wihmp0k" path="res://systems/arsenal/components/test_weapon_rotate.gd" id="2_innl1"]
-[ext_resource type="Resource" uid="uid://clklakntssmpn" path="res://systems/arsenal/components/straight_with_sub_spray.tres" id="4_kpy8x"]
+[ext_resource type="Resource" uid="uid://dgswt2e1cjmhd" path="res://systems/arsenal/weapons/t1_enemy_weapon.tres" id="4_kpy8x"]
 [ext_resource type="Script" uid="uid://1roeyw6o6hb1" path="res://components/mouse-follow/mouse_follow_2d.gd" id="9_oityq"]
 [ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/entities/astroid.tscn" id="10_uj0us"]
-[ext_resource type="PackedScene" uid="uid://dd62ijtj54nro" path="res://systems/arsenal/components/basic_weapon_system.tscn" id="13_pbx41"]
+[ext_resource type="PackedScene" uid="uid://dd62ijtj54nro" path="res://systems/arsenal/components/weapon_component.tscn" id="13_pbx41"]
 
 [node name="TestWeapon" type="Node2D"]
 
@@ -27,10 +27,10 @@ script = ExtResource("1_nq5uu")
 bullet_root = NodePath("../../Pellet_Container")
 weapon_data = ExtResource("4_kpy8x")
 target = NodePath("../../Target")
-weapon_system = NodePath("BasicWeaponSystem")
+weapon_system = NodePath("WeaponComponent")
 
-[node name="BasicWeaponSystem" parent="Player/Arsenal" instance=ExtResource("13_pbx41")]
-rotation = -1.5707964
+[node name="WeaponComponent" parent="Player/Arsenal" instance=ExtResource("13_pbx41")]
+position = Vector2(0, -87)
 
 [node name="Target" type="Node2D" parent="."]
 script = ExtResource("9_oityq")

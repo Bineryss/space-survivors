@@ -1,22 +1,24 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=18 format=3 uid="uid://clklakntssmpn"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=22 format=3 uid="uid://clklakntssmpn"]
 
-[ext_resource type="PackedScene" uid="uid://dwrjn0x71j4cm" path="res://systems/arsenal/core/attack_actor.tscn" id="1_mimrk"]
+[ext_resource type="PackedScene" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="1_jlbow"]
 [ext_resource type="Script" uid="uid://c10pbiwdrdkls" path="res://systems/arsenal/strategies/despawn/despawn_distance.gd" id="2_4oisx"]
 [ext_resource type="Script" uid="uid://cy5bynh5opdcu" path="res://systems/arsenal/strategies/impact/impact_sub_instances.gd" id="3_r0is1"]
 [ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="4_688al"]
+[ext_resource type="Script" uid="uid://bu8emhpms8xea" path="res://systems/arsenal/strategies/despawn/despawn_time.gd" id="4_jlbow"]
 [ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="5_jlbow"]
 [ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="6_5el7t"]
 [ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="7_3uw7g"]
 [ext_resource type="Script" uid="uid://dw1px2bffwx4t" path="res://systems/arsenal/strategies/spawn/spaw_salvo.gd" id="8_nfl5v"]
+[ext_resource type="Script" uid="uid://bp41sbeejki6q" path="res://systems/arsenal/strategies/target/target_nearest_enemy.gd" id="9_r0is1"]
+[ext_resource type="Script" uid="uid://llc33b4rad07" path="res://systems/arsenal/strategies/trajectory/trajectory_boost_homing.gd" id="10_r0is1"]
 
 [sub_resource type="Resource" id="Resource_m6sy8"]
 script = ExtResource("2_4oisx")
 metadata/_custom_type_script = "uid://c10pbiwdrdkls"
 
-[sub_resource type="Resource" id="Resource_cu657"]
-script = ExtResource("2_4oisx")
-max_distance = 500.0
-metadata/_custom_type_script = "uid://c10pbiwdrdkls"
+[sub_resource type="Resource" id="Resource_5el7t"]
+script = ExtResource("4_jlbow")
+metadata/_custom_type_script = "uid://bu8emhpms8xea"
 
 [sub_resource type="Resource" id="Resource_kq3mu"]
 script = ExtResource("4_688al")
@@ -35,11 +37,11 @@ metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
 
 [sub_resource type="Resource" id="Resource_44nns"]
 script = ExtResource("5_jlbow")
-attack_actor_scene = ExtResource("1_mimrk")
+attack_actor_scene = ExtResource("1_jlbow")
 spawn_strategy = SubResource("Resource_e12vn")
 trajectory_strategy = SubResource("Resource_owxv6")
 impact_strategy = SubResource("Resource_kq3mu")
-despawn_strategy = SubResource("Resource_cu657")
+despawn_strategy = SubResource("Resource_5el7t")
 metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
 
 [sub_resource type="Resource" id="Resource_eqtg2"]
@@ -52,15 +54,22 @@ metadata/_custom_type_script = "uid://cy5bynh5opdcu"
 script = ExtResource("8_nfl5v")
 metadata/_custom_type_script = "uid://dw1px2bffwx4t"
 
-[sub_resource type="Resource" id="Resource_eg0l5"]
-script = ExtResource("7_3uw7g")
-metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
+[sub_resource type="Resource" id="Resource_jlbow"]
+script = ExtResource("9_r0is1")
+target_layers = 31
+metadata/_custom_type_script = "uid://bp41sbeejki6q"
+
+[sub_resource type="Resource" id="Resource_688al"]
+script = ExtResource("10_r0is1")
+max_speed = 800.0
+metadata/_custom_type_script = "uid://llc33b4rad07"
 
 [resource]
 script = ExtResource("5_jlbow")
-attack_actor_scene = ExtResource("1_mimrk")
+attack_actor_scene = ExtResource("1_jlbow")
+target_strategy = SubResource("Resource_jlbow")
 spawn_strategy = SubResource("Resource_0ekpd")
-trajectory_strategy = SubResource("Resource_eg0l5")
+trajectory_strategy = SubResource("Resource_688al")
 impact_strategy = SubResource("Resource_eqtg2")
 despawn_strategy = SubResource("Resource_m6sy8")
 metadata/_custom_type_script = "uid://bvnf27hwmnk3m"

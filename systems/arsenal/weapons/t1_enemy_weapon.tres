@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=13 format=3 uid="uid://dgswt2e1cjmhd"]
+
+[ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="1_8tu5t"]
+[ext_resource type="PackedScene" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="1_sl57l"]
+[ext_resource type="Script" uid="uid://bu8emhpms8xea" path="res://systems/arsenal/strategies/despawn/despawn_time.gd" id="2_1qhsp"]
+[ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="3_l2fh4"]
+[ext_resource type="Script" uid="uid://c4t3ib64mb8fb" path="res://systems/arsenal/strategies/spawn/spawn_single.gd" id="5_j5piu"]
+[ext_resource type="Script" uid="uid://bp41sbeejki6q" path="res://systems/arsenal/strategies/target/target_nearest_enemy.gd" id="6_1qhsp"]
+[ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="6_bf7x0"]
+
+[sub_resource type="Resource" id="Resource_m4asf"]
+script = ExtResource("2_1qhsp")
+metadata/_custom_type_script = "uid://bu8emhpms8xea"
+
+[sub_resource type="Resource" id="Resource_7qfdk"]
+script = ExtResource("3_l2fh4")
+damage_amount = 1.0
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
+
+[sub_resource type="Resource" id="Resource_l2fh4"]
+script = ExtResource("5_j5piu")
+metadata/_custom_type_script = "uid://c4t3ib64mb8fb"
+
+[sub_resource type="Resource" id="Resource_j5piu"]
+script = ExtResource("6_1qhsp")
+metadata/_custom_type_script = "uid://bp41sbeejki6q"
+
+[sub_resource type="Resource" id="Resource_vmri4"]
+script = ExtResource("6_bf7x0")
+speed = 400
+metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
+
+[resource]
+script = ExtResource("1_8tu5t")
+attack_actor_scene = ExtResource("1_sl57l")
+target_strategy = SubResource("Resource_j5piu")
+spawn_strategy = SubResource("Resource_l2fh4")
+trajectory_strategy = SubResource("Resource_vmri4")
+impact_strategy = SubResource("Resource_7qfdk")
+despawn_strategy = SubResource("Resource_m4asf")
+metadata/_custom_type_script = "uid://bvnf27hwmnk3m"

@@ -11,11 +11,16 @@ signal health_depleated
 
 var health: float
 
+func init(max_health_value: int) -> void:
+	max_health = max_health_value
+	_ready()
+
 func _ready() -> void:
 	health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = health
-	timer.wait_time = display_timer
+	if display_timer > 0:
+		timer.wait_time = display_timer
 	
 func damage(attack: int) -> void:
 	health -= attack

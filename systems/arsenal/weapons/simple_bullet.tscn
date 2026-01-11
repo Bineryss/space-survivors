@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwrjn0x71j4cm"]
+[gd_scene load_steps=3 format=3 uid="uid://box6kuu6ld7em"]
 
 [ext_resource type="Script" uid="uid://osmuf3mwn4k8" path="res://systems/arsenal/core/attack_actor.gd" id="1_02iv5"]
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="2_y50nr"]
@@ -7,7 +7,6 @@
 script = ExtResource("1_02iv5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.7668692, 0, 0.26453057, 1)
 rotation = 1.5707964
 texture = ExtResource("2_y50nr")
 hframes = 8

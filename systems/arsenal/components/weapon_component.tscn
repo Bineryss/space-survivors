@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd62ijtj54nro"]
+
+[ext_resource type="Script" uid="uid://cnemcq4r7l2s6" path="res://systems/arsenal/components/weapon_component.gd" id="1_vpmrc"]
+
+[node name="WeaponComponent" type="Marker2D"]
+script = ExtResource("1_vpmrc")

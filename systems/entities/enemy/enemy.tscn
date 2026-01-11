@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chvwf0j5xtupr"]
+[gd_scene load_steps=18 format=3 uid="uid://chvwf0j5xtupr"]
 
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_t3d12"]
 [ext_resource type="Script" uid="uid://bspd2sh6as53a" path="res://systems/entities/enemy/enemy.gd" id="1_w2wpc"]
@@ -9,8 +9,7 @@
 [ext_resource type="Script" uid="uid://c7w8kpi0prrri" path="res://systems/entities/enemy/states/enemy_move_in_range_of_target.gd" id="7_x5pdt"]
 [ext_resource type="Script" uid="uid://dkd6wveedw3io" path="res://systems/entities/enemy/states/enemy-circle.gd" id="8_g54yo"]
 [ext_resource type="Texture2D" uid="uid://wyn1ptvi6h4e" path="res://assets/glowing_circle.png" id="9_1pl2h"]
-[ext_resource type="Script" uid="uid://c3fpywa37mja6" path="res://systems/entities/enemy/enemy_gun.gd" id="10_i3dkx"]
-[ext_resource type="PackedScene" uid="uid://cpuucp5c8djki" path="res://systems/entities/enemy/enemy_bullet.tscn" id="11_y3kwv"]
+[ext_resource type="PackedScene" uid="uid://dd62ijtj54nro" path="res://systems/arsenal/components/weapon_component.tscn" id="10_i3dkx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvmk8"]
 radius = 49.162994
@@ -56,6 +55,7 @@ rotation = 0.0012587615
 shape = SubResource("CircleShape2D_gvmk8")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_6il8f")]
+unique_name_in_owner = true
 position = Vector2(0, 81)
 max_health = 3
 
@@ -122,19 +122,13 @@ texture = ExtResource("9_1pl2h")
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_y3kwv")
 
-[node name="Gun" type="Node2D" parent="." node_paths=PackedStringArray("state_machine")]
-script = ExtResource("10_i3dkx")
-bullet = ExtResource("11_y3kwv")
-state_machine = NodePath("../StateMachine")
-
-[node name="Timer" type="Timer" parent="Gun"]
-autostart = true
-
-[node name="ShootingPoint" type="Marker2D" parent="Gun"]
+[node name="WeaponComponent" parent="." instance=ExtResource("10_i3dkx")]
+unique_name_in_owner = true
+position = Vector2(80, 0)
 
 [connection signal="health_depleated" from="HealthComponent" to="." method="_on_health_component_health_depleated"]
+[connection signal="fire_signal" from="StateMachine/EnemyCircle" to="." method="_on_enemy_circle_fire_signal"]
 [connection signal="body_entered" from="ShootingRange" to="." method="_on_shooting_range_body_entered"]
 [connection signal="body_exited" from="ShootingRange" to="." method="_on_shooting_range_body_exited"]
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
-[connection signal="timeout" from="Gun/Timer" to="Gun" method="_on_timer_timeout"]

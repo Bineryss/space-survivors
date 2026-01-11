@@ -3,7 +3,7 @@ extends Node2D
 @export var bullet_root: Node2D
 @export var weapon_data: WeaponData
 @export var target: Node2D
-@export var weapon_system: BasicWeaponSystem = null
+@export var weapon_system: WeaponComponent = null
 
 var is_shooting: bool = false
 

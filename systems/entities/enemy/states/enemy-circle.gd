@@ -1,5 +1,7 @@
 class_name EnemyCircle extends State
 
+signal fire_signal
+
 @export var move_speed: float = 80.0
 @export var follow_state: State
 @export var idle_state: State
@@ -37,4 +39,4 @@ func physics_update(delta: float) -> State:
 	return null
 
 func shoot() -> void:
-	print("Bang!")
+	fire_signal.emit()

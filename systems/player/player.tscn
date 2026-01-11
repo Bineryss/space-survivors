@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dakulavtgjbfx" path="res://systems/weapons/laser.tscn" id="4_q27vv"]
 [ext_resource type="PackedScene" uid="uid://cap3mkr0orqlm" path="res://components/hurt-box/hurt_box.tscn" id="5_4khys"]
 [ext_resource type="PackedScene" uid="uid://kql27qacgpr8" path="res://components/health/health.tscn" id="5_e4lrk"]
-[ext_resource type="PackedScene" uid="uid://dd62ijtj54nro" path="res://systems/arsenal/components/basic_weapon_system.tscn" id="6_4khys"]
+[ext_resource type="PackedScene" uid="uid://dd62ijtj54nro" path="res://systems/arsenal/components/weapon_component.tscn" id="6_4khys"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q27vv"]
 radius = 67.052216
@@ -23,7 +23,7 @@ angular_speed = 15
 
 [node name="Ship" type="Sprite2D" parent="."]
 z_index = 10
-rotation = 1.5707964
+rotation = 1.5446163
 texture = ExtResource("2_fqfg4")
 hframes = 8
 vframes = 6
@@ -49,14 +49,12 @@ debug_color = Color(0.76862746, 0.11372549, 0.23921569, 0.14901961)
 [node name="HealthComponent" parent="." instance=ExtResource("5_e4lrk")]
 position = Vector2(0, 102)
 
-[node name="WeaponSystem" type="Node2D" parent="."]
-
-[node name="BasicWeapon" parent="WeaponSystem" instance=ExtResource("6_4khys")]
+[node name="WeaponComponent" parent="." instance=ExtResource("6_4khys")]
 unique_name_in_owner = true
-position = Vector2(76, 0)
+position = Vector2(70, 0)
 
-[node name="ShootTimer" type="Timer" parent="WeaponSystem"]
+[node name="ShootTimer" type="Timer" parent="WeaponComponent"]
 autostart = true
 
 [connection signal="health_depleated" from="HealthComponent" to="." method="_on_health_component_health_depleated"]
-[connection signal="timeout" from="WeaponSystem/ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="WeaponComponent/ShootTimer" to="." method="_on_shoot_timer_timeout"]

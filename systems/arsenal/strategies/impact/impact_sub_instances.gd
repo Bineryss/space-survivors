@@ -4,7 +4,6 @@ class_name ImpactSubInstances
 @export var sub_pellet: WeaponData
 @export var damage_amount: float = 10.0
 
-
 func on_impact(attack_actor: AttackActor, ctx: FireContext, _data: WeaponData, body: Node2D) -> void:
 	if body is HurtBoxComponent:
 		body.damage(damage_amount)

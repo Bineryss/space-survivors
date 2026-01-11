@@ -7,11 +7,11 @@ class_name PlayerControler
 
 @export var angular_speed := 5
 
-@export_category("Arsenal")
+@export_group("Arsenal")
 @export var weapon_data: WeaponData = null
 @export var bullet_root: Node2D = null
 
-@onready var weapon_system: BasicWeaponSystem = %BasicWeapon
+@onready var weapon_component: WeaponComponent = %WeaponComponent
 
 var acceleration : float
 var deceleration : float
@@ -19,7 +19,7 @@ var deceleration : float
 func _ready() -> void:
 	acceleration = max_speed / time_to_max
 	deceleration = max_speed / time_to_stop
-	weapon_system.init(bullet_root, weapon_data)
+	weapon_component.init(bullet_root, weapon_data)
 
 func _physics_process(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -42,4 +42,4 @@ func _on_health_component_health_depleated() -> void:
 
 
 func _on_shoot_timer_timeout() -> void:
-	weapon_system.try_shoot()
+	weapon_component.try_shoot()

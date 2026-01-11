@@ -1,10 +1,73 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfuqottnatk4c"]
+[gd_scene load_steps=24 format=3 uid="uid://dfuqottnatk4c"]
 
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://bq0j4aaauwfem" path="res://systems/entities/enemy/enemy-spawn-radius.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dwrjn0x71j4cm" path="res://systems/arsenal/core/attack_actor.tscn" id="3_dg77c"]
 [ext_resource type="PackedScene" uid="uid://cxsr2qwvoy5wf" path="res://systems/entities/astroid.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cargs08g77u5b" path="res://systems/camera/follow_camera_2d.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://c10pbiwdrdkls" path="res://systems/arsenal/strategies/despawn/despawn_distance.gd" id="4_ycdy4"]
+[ext_resource type="Script" uid="uid://cy5bynh5opdcu" path="res://systems/arsenal/strategies/impact/impact_sub_instances.gd" id="5_w48qg"]
+[ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="6_vivmo"]
+[ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="7_2cqfq"]
+[ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="8_yaehf"]
+[ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="9_074og"]
+
+[sub_resource type="Resource" id="Resource_cegan"]
+script = ExtResource("4_ycdy4")
+metadata/_custom_type_script = "uid://c10pbiwdrdkls"
+
+[sub_resource type="Resource" id="Resource_82xsv"]
+script = ExtResource("4_ycdy4")
+max_distance = 250.0
+metadata/_custom_type_script = "uid://c10pbiwdrdkls"
+
+[sub_resource type="Resource" id="Resource_getpj"]
+script = ExtResource("6_vivmo")
+damage_amount = 1.0
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
+
+[sub_resource type="Resource" id="Resource_ryguw"]
+script = ExtResource("8_yaehf")
+arc_degrees = 270.0
+metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+
+[sub_resource type="Resource" id="Resource_d13ii"]
+script = ExtResource("9_074og")
+metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
+
+[sub_resource type="Resource" id="Resource_1u8w0"]
+script = ExtResource("7_2cqfq")
+attack_actor_scene = ExtResource("3_dg77c")
+spawn_strategy = SubResource("Resource_ryguw")
+trajectory_strategy = SubResource("Resource_d13ii")
+impact_strategy = SubResource("Resource_getpj")
+despawn_strategy = SubResource("Resource_82xsv")
+metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
+
+[sub_resource type="Resource" id="Resource_0odxb"]
+script = ExtResource("5_w48qg")
+sub_pellet = SubResource("Resource_1u8w0")
+damage_amount = 1.0
+metadata/_custom_type_script = "uid://cy5bynh5opdcu"
+
+[sub_resource type="Resource" id="Resource_lswn8"]
+script = ExtResource("8_yaehf")
+arc_degrees = 27.0
+metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+
+[sub_resource type="Resource" id="Resource_a6jrf"]
+script = ExtResource("9_074og")
+metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
+
+[sub_resource type="Resource" id="Resource_xuqvo"]
+script = ExtResource("7_2cqfq")
+attack_actor_scene = ExtResource("3_dg77c")
+spawn_strategy = SubResource("Resource_lswn8")
+trajectory_strategy = SubResource("Resource_a6jrf")
+impact_strategy = SubResource("Resource_0odxb")
+despawn_strategy = SubResource("Resource_cegan")
+metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 glow_enabled = true
@@ -15,8 +78,10 @@ glow_enabled = true
 scroll_offset = Vector2(134, 52)
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("2_lkhdi")]
+[node name="Player" parent="." node_paths=PackedStringArray("bullet_root") instance=ExtResource("2_lkhdi")]
 rotation = -3.0707538
+weapon_data = SubResource("Resource_xuqvo")
+bullet_root = NodePath("../ProjectileContainer")
 
 [node name="EnemySpawner" parent="Player" node_paths=PackedStringArray("enemy_container") instance=ExtResource("3_7mycd")]
 rotation = 3.0707538
@@ -53,3 +118,5 @@ target = NodePath("../Player")
 lookahead_distance = 300.0
 
 [node name="Enemies" type="Marker2D" parent="."]
+
+[node name="ProjectileContainer" type="Node2D" parent="."]

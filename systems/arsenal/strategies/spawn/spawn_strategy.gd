@@ -2,13 +2,13 @@
 class_name SpawnStrategy extends Resource
 
 @abstract
-func execute(ctx: FireContext, data: WeaponData) -> void
+func execute(spawn_params: SpawnParams, data: WeaponData) -> void
 
-func _spawn_attack_actor(ctx: FireContext, data: WeaponData, spawn_position_overwrite: SpawnPositionOverride = null) -> void:
+func _spawn_attack_actor(spawn_params: SpawnParams, data: WeaponData, spawn_position_overwrite: SpawnPositionOverride = null) -> void:
 		var attack_actor: AttackActor = data.attack_actor_scene.instantiate()
 		
-		var position: Vector2 = ctx.muzzle_global.global_position
-		var rotation: float = ctx.muzzle_global.global_rotation
+		var position: Vector2 = spawn_params.get_spawn_position()
+		var rotation: float = spawn_params.get_spawn_rotation()
 		if spawn_position_overwrite != null:
 			if spawn_position_overwrite.has_position:
 				position = spawn_position_overwrite.position
@@ -17,5 +17,6 @@ func _spawn_attack_actor(ctx: FireContext, data: WeaponData, spawn_position_over
 		
 		attack_actor.global_position = position
 		attack_actor.global_rotation = rotation
-		attack_actor.init_from(ctx, data)
-		ctx.projectile_parent.add_child(attack_actor)
+		var context: FireContext = FireContext.from_spawn_params(spawn_params)
+		attack_actor.init_from(context, data)
+		spawn_params.projectile_parent.add_child(attack_actor)

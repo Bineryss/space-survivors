@@ -1,11 +1,11 @@
 extends RefCounted
 class_name SpawnPositionOverride
 
-var has_position := false
-var position := Vector2.ZERO
+var has_position: bool = false
+var position: Vector2 = Vector2.ZERO
 
-var has_rotation := false
-var rotation := 0.0
+var has_rotation: bool = false
+var rotation: float = 0.0
 
 static func with_rotation(rot: float) -> SpawnPositionOverride:
 	var o := SpawnPositionOverride.new()

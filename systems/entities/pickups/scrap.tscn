@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://erdjiyc0bjhj"]
+
+[ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="1_el3bl"]
+[ext_resource type="Script" uid="uid://cso0g4ol7s5k4" path="res://components/pickup/pickup_component.gd" id="1_hw023"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hw023"]
+radius = 22.0
+
+[node name="Scrap" type="Area2D"]
+collision_layer = 1024
+collision_mask = 1024
+script = ExtResource("1_hw023")
+move_speed = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.6901961, 1, 1)
+texture = ExtResource("1_el3bl")
+hframes = 8
+vframes = 6
+frame = 28
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hw023")

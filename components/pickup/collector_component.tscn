@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://drrul1yk155ww"]
+
+[ext_resource type="Script" uid="uid://4yvn2su8klwf" path="res://components/pickup/colletor_component.gd" id="1_0jqau"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_on0pt"]
+radius = 350.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7d2k"]
+radius = 22.472204
+
+[node name="CollectorComponent" type="Node2D"]
+script = ExtResource("1_0jqau")
+attraction_radius = 350.0
+collection_radius = 50.0
+
+[node name="AttractionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 1024
+gravity_space_override = 3
+gravity_point = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttractionArea"]
+shape = SubResource("CircleShape2D_on0pt")
+debug_color = Color(0.3882353, 0.8, 0.37254903, 0.05490196)
+
+[node name="CollectionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionArea"]
+shape = SubResource("CircleShape2D_f7d2k")
+debug_color = Color(0, 0.6, 0.69803923, 0.09019608)

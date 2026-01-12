@@ -15,6 +15,7 @@ script = ExtResource("1_tj66j")
 enemy_instance = ExtResource("2_m638d")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
 autostart = true
 
 [node name="Path2D" type="Path2D" parent="."]

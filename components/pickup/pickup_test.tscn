@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmp6a3kw1wqw2"]
+
+[ext_resource type="PackedScene" uid="uid://erdjiyc0bjhj" path="res://systems/entities/pickups/scrap.tscn" id="1_41oc8"]
+[ext_resource type="PackedScene" uid="uid://cj2sic08y4p5" path="res://components/mouse-follow/mouse-follow-2d.tscn" id="2_a55cr"]
+[ext_resource type="PackedScene" uid="uid://drrul1yk155ww" path="res://components/pickup/collector_component.tscn" id="3_0b5xn"]
+
+[node name="PickupTest" type="Node2D"]
+
+[node name="Scrap" parent="." instance=ExtResource("1_41oc8")]
+position = Vector2(-463, -220)
+
+[node name="Scrap2" parent="." instance=ExtResource("1_41oc8")]
+position = Vector2(548, 299)
+
+[node name="MouseFollow2d" parent="." instance=ExtResource("2_a55cr")]
+
+[node name="CollectorComponent" parent="MouseFollow2d" instance=ExtResource("3_0b5xn")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -37,9 +37,18 @@ func handle_mouse_aim(delta: float) -> void:
 	var target_angle = (get_global_mouse_position() - global_position).angle()
 	rotation = lerp_angle(rotation, target_angle, angular_speed * delta)
 	
+
+func _on_shoot_timer_timeout() -> void:
+	weapon_component.try_shoot()
+
 func _on_health_component_health_depleated() -> void:
 	SignalBus.player_died.emit()
 
 
-func _on_shoot_timer_timeout() -> void:
-	weapon_component.try_shoot()
+func _on_collector_component_pickup_collected() -> void:
+	pickups_collected += 1
+	print("Pickups collected: %d" % pickups_collected)
+	SignalBus.pickup_collected.emit()
+
+# TODO: handle in central data component
+var pickups_collected: int = 0

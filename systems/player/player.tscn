@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7ctubyuwv6hn"]
+[gd_scene load_steps=10 format=3 uid="uid://c7ctubyuwv6hn"]
 
 [ext_resource type="Script" uid="uid://brt7rbtnr68f0" path="res://systems/player/player.gd" id="1_ktl23"]
 [ext_resource type="Texture2D" uid="uid://b0xfydbhbrw36" path="res://assets/space-tileset.png" id="2_fqfg4"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cap3mkr0orqlm" path="res://components/hurt-box/hurt_box.tscn" id="5_4khys"]
 [ext_resource type="PackedScene" uid="uid://kql27qacgpr8" path="res://components/health/health.tscn" id="5_e4lrk"]
 [ext_resource type="PackedScene" uid="uid://dd62ijtj54nro" path="res://systems/arsenal/components/weapon_component.tscn" id="6_4khys"]
+[ext_resource type="PackedScene" uid="uid://drrul1yk155ww" path="res://components/pickup/collector_component.tscn" id="7_7n85q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q27vv"]
 radius = 67.052216
@@ -57,5 +58,9 @@ position = Vector2(70, 0)
 [node name="ShootTimer" type="Timer" parent="WeaponComponent"]
 autostart = true
 
+[node name="CollectorComponent" parent="." instance=ExtResource("7_7n85q")]
+collection_radius = 70.0
+
 [connection signal="health_depleated" from="HealthComponent" to="." method="_on_health_component_health_depleated"]
 [connection signal="timeout" from="WeaponComponent/ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="pickup_collected" from="CollectorComponent" to="." method="_on_collector_component_pickup_collected"]

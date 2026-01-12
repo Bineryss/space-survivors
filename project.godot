@@ -72,6 +72,7 @@ primary_action={
 2d_physics/layer_8="EnemyHurtbox"
 2d_physics/layer_9="EnemyProjectile"
 2d_physics/layer_10="PlayerProjectile"
+2d_physics/layer_11="Pickups"
 2d_physics/layer_32="NoCollision"
 
 [physics]

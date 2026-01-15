@@ -2,6 +2,7 @@ extends Node2D
 class_name  HealthComponent
 
 signal health_depleated
+signal health_changed(current_health: float)
 
 @export var max_health := 10
 @export var display_timer := 0
@@ -26,6 +27,7 @@ func damage(attack: int) -> void:
 	health -= attack
 	health_bar.value = health
 	show_health_bar()
+	health_changed.emit(health)
 	if display_timer > 0:
 		timer.start()
 	if health <= 0:

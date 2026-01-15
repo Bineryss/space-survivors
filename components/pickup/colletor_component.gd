@@ -46,7 +46,6 @@ func _on_collection_entered(body: Node) -> void:
 func collect_pickup(pickup: PickupComponent) -> void:
 	pickup_collected.emit()
 	pickup.deactivate()
-	print("Pickup collected!")
 
 
 ## tool functions ##

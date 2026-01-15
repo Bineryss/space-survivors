@@ -46,9 +46,8 @@ func _on_health_component_health_depleated() -> void:
 
 
 func _on_collector_component_pickup_collected() -> void:
-	pickups_collected += 1
-	print("Pickups collected: %d" % pickups_collected)
 	SignalBus.pickup_collected.emit()
 
-# TODO: handle in central data component
-var pickups_collected: int = 0
+
+func _on_health_component_health_changed(current_health: float) -> void:
+	SignalBus.player_hurt.emit(current_health)

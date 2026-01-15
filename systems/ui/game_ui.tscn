@@ -1,0 +1,111 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7iagtbuc8kd1"]
+
+[ext_resource type="Script" uid="uid://csbmn2vptat4a" path="res://systems/ui/game_ui.gd" id="1_ag0y3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ag0y3"]
+bg_color = Color(0, 0.6901961, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lqgn"]
+bg_color = Color(0.3882353, 0.8, 0.37254903, 1)
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ag0y3")
+
+[node name="SafeZone" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeZone"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeZone/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeZone/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Upgrade1" type="Button" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[UPGRADE 1]"
+
+[node name="Seperator" type="Control" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="Upgrade2" type="Button" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[UPGRADE 2]"
+
+[node name="Seperator2" type="Control" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+
+[node name="Upgrade3" type="Button" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[UPGRADE 3]"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeZone/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelProgress" type="ProgressBar" parent="SafeZone/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_ag0y3")
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeZone/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Health" type="ProgressBar" parent="SafeZone/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_8lqgn")
+value = 50.0
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="SafeZone/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+
+[node name="KillCount" type="Label" parent="SafeZone/VBoxContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kills: 0"

@@ -1,6 +1,5 @@
-[gd_scene load_steps=44 format=3 uid="uid://dfuqottnatk4c"]
+[gd_scene load_steps=45 format=3 uid="uid://dfuqottnatk4c"]
 
-[ext_resource type="Script" uid="uid://h5w5803yndkk" path="res://main_loop.gd" id="1_074og"]
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://bq0j4aaauwfem" path="res://systems/entities/enemy/enemy-spawn-radius.tscn" id="3_7mycd"]
@@ -25,6 +24,8 @@
 [ext_resource type="Resource" uid="uid://bal46sos7pgmp" path="res://systems/globals/colors/enemy_color.tres" id="15_yaehf"]
 [ext_resource type="Script" uid="uid://ofwqnrxi8rjy" path="res://systems/entities/pickups/pickup_spawner.gd" id="19_82xsv"]
 [ext_resource type="PackedScene" uid="uid://erdjiyc0bjhj" path="res://systems/entities/pickups/scrap.tscn" id="20_getpj"]
+[ext_resource type="Script" uid="uid://cxj3ivqd123h1" path="res://game_manager.gd" id="25_lswn8"]
+[ext_resource type="PackedScene" uid="uid://b7iagtbuc8kd1" path="res://systems/ui/game_ui.tscn" id="26_a6jrf"]
 
 [sub_resource type="Resource" id="Resource_cegan"]
 script = ExtResource("4_ycdy4")
@@ -138,7 +139,6 @@ weapon_data = SubResource("Resource_1u8w0")
 metadata/_custom_type_script = "uid://ynac6ea0lf2e"
 
 [node name="Game" type="Node"]
-script = ExtResource("1_074og")
 
 [node name="Parallax2D" parent="." instance=ExtResource("1_lkhdi")]
 scroll_offset = Vector2(134, 52)
@@ -190,3 +190,11 @@ lookahead_distance = 300.0
 [node name="PickupSpawner" type="Node2D" parent="."]
 script = ExtResource("19_82xsv")
 pickup_scene = ExtResource("20_getpj")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("25_lswn8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("26_a6jrf")]
+unique_name_in_owner = true

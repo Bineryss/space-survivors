@@ -9,6 +9,7 @@ bg_color = Color(0, 0.6901961, 1, 1)
 bg_color = Color(0.3882353, 0.8, 0.37254903, 1)
 
 [node name="GameUI" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,8 +36,8 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SafeZone/VBoxContainer"]
-visible = false
+[node name="UpgradeScreen" type="MarginContainer" parent="SafeZone/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -45,32 +46,32 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SafeZone/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SafeZone/VBoxContainer/UpgradeScreen"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Upgrade1" type="Button" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Upgrade1" type="Button" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[UPGRADE 1]"
 
-[node name="Seperator" type="Control" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Seperator" type="Control" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 
-[node name="Upgrade2" type="Button" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Upgrade2" type="Button" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[UPGRADE 2]"
 
-[node name="Seperator2" type="Control" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Seperator2" type="Control" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 
-[node name="Upgrade3" type="Button" parent="SafeZone/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Upgrade3" type="Button" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

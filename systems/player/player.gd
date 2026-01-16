@@ -40,6 +40,7 @@ func handle_mouse_aim(delta: float) -> void:
 
 func _on_shoot_timer_timeout() -> void:
 	weapon_component.try_shoot()
+	SignalBus.statistic_changed.emit(StatisticsService.StatisticName.SHOOTS_FIRED, 1.0)
 
 func _on_health_component_health_depleated() -> void:
 	SignalBus.player_died.emit()
@@ -47,6 +48,7 @@ func _on_health_component_health_depleated() -> void:
 
 func _on_collector_component_pickup_collected() -> void:
 	SignalBus.pickup_collected.emit()
+	SignalBus.statistic_changed.emit(StatisticsService.StatisticName.PICKUPS_COLLECTED, 1.0)
 
 
 func _on_health_component_health_changed(current_health: float) -> void:

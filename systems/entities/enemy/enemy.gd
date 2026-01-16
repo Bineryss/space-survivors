@@ -41,6 +41,7 @@ func _on_shooting_range_body_exited(body: Node2D) -> void:
 
 func _on_health_component_health_depleated() -> void:
 	SignalBus.enemy_destroyed.emit(global_position)
+	SignalBus.statistic_changed.emit(StatisticsService.StatisticName.ENEMIES_KILLED, 1.0)
 	queue_free()
 
 func _on_enemy_circle_fire_signal() -> void:

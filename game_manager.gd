@@ -7,20 +7,22 @@ var current_level: int = 0
 var required_xp: int = 0
 
 @onready var game_ui: GameUI = %GameUI
+@onready var statistics_service: StatisticsService = %StatisticsService
 
 func _ready() -> void:
 	SignalBus.player_died.connect(_on_player_died)
 	SignalBus.pickup_collected.connect(_on_pickup_collected)
 	SignalBus.enemy_destroyed.connect(_on_enemy_destroyed)
 	SignalBus.player_hurt.connect(_on_player_hurt)
-	reset_ui()
+	call_deferred("reset_ui")
+	game_ui.upgrade_selected.connect(handle_upgrade_selection)
 
 func _on_player_died() -> void:
+	print(statistics_service.stats)
 	reset_ui()
 	get_tree().reload_current_scene()
 
 func _on_pickup_collected() -> void:
-	print("Pickup collected!", pickups_collected, required_xp)
 	pickups_collected += 1
 	required_xp = calculate_required_xp(current_level + 1)
 	game_ui.current_level_progress = float(pickups_collected) / required_xp
@@ -28,8 +30,10 @@ func _on_pickup_collected() -> void:
 	if pickups_collected >= required_xp: 
 		current_level += 1
 		pickups_collected = 0
+		get_tree().paused = true
+		game_ui.show_upgrade_screen()
 
-func _on_enemy_destroyed() -> void:
+func _on_enemy_destroyed(_position: Vector2) -> void:
 	enemy_destroyed_count += 1
 	game_ui.kill_count = enemy_destroyed_count
 
@@ -55,3 +59,7 @@ func reset_ui() -> void:
 	game_ui.kill_count = enemy_destroyed_count
 	game_ui.current_health = 1.0
 	game_ui.current_level_progress = 0.0
+
+func handle_upgrade_selection(upgrade_index: int) -> void:
+	get_tree().paused = false
+	print("Upgrade selected: %d" % upgrade_index)

@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7iagtbuc8kd1"]
+[gd_scene load_steps=6 format=3 uid="uid://b7iagtbuc8kd1"]
 
 [ext_resource type="Script" uid="uid://csbmn2vptat4a" path="res://systems/ui/game_ui.gd" id="1_ag0y3"]
+[ext_resource type="PackedScene" uid="uid://dqe8thxw65mab" path="res://systems/ui/upgrade-menu/upgrade_screen.tscn" id="2_ypomr"]
+[ext_resource type="PackedScene" uid="uid://dh4fkmghvkgq" path="res://systems/ui/menu-screen/game_over_screen.tscn" id="3_xh7fq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ag0y3"]
 bg_color = Color(0, 0.6901961, 1, 1)
@@ -38,6 +40,7 @@ alignment = 2
 
 [node name="UpgradeScreen" type="MarginContainer" parent="SafeZone/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -46,36 +49,9 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SafeZone/VBoxContainer/UpgradeScreen"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="Upgrade1" type="Button" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
+[node name="UpgradeMenu" parent="SafeZone/VBoxContainer/UpgradeScreen" instance=ExtResource("2_ypomr")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-text = "[UPGRADE 1]"
-
-[node name="Seperator" type="Control" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-
-[node name="Upgrade2" type="Button" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "[UPGRADE 2]"
-
-[node name="Seperator2" type="Control" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-
-[node name="Upgrade3" type="Button" parent="SafeZone/VBoxContainer/UpgradeScreen/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "[UPGRADE 3]"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SafeZone/VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
@@ -110,3 +86,7 @@ theme_override_constants/margin_right = 24
 unique_name_in_owner = true
 layout_mode = 2
 text = "Kills: 0"
+
+[node name="GameOverScreen" parent="SafeZone" instance=ExtResource("3_xh7fq")]
+unique_name_in_owner = true
+layout_mode = 2

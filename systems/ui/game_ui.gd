@@ -1,12 +1,12 @@
 extends Control
 class_name GameUI
 
-signal upgrade_selected(selection: int)
+signal upgrade_selected(id: String)
+signal restart_game_requested
 
-@onready var upgrade_1: Button = %Upgrade1
-@onready var upgrade_2: Button = %Upgrade2
-@onready var upgrade_3: Button = %Upgrade3
-@onready var upgrade_screen: Control = %UpgradeScreen
+@onready var upgrade_container: Control = %UpgradeScreen
+@onready var upgrade_menu: UpgradeMenu = %UpgradeMenu
+@onready var gameover_menu: GameOverScreen = %GameOverScreen
 
 @onready var level_progress: ProgressBar = %LevelProgress
 @onready var health: ProgressBar = %Health
@@ -34,20 +34,17 @@ func _ready() -> void:
 	kill_counter.text = "Kills: %d" % kill_count
 	health.value = current_health * health.max_value
 	level_progress.value = current_level_progress * level_progress.max_value
-	upgrade_1.pressed.connect(func() -> void:
-		handle_upgrade_selection(0)
-	)
-	upgrade_2.pressed.connect(func() -> void:
-		handle_upgrade_selection(1)
-	)
-	upgrade_3.pressed.connect(func() -> void:
-		handle_upgrade_selection(2)
-	)
-	upgrade_screen.visible = false
+	upgrade_container.visible = false
+	upgrade_menu.upgrade_selected.connect(handle_upgrade_selection)
+	gameover_menu.restart_game_requested.connect(restart_game_requested.emit)
+
+func show_game_over_screen() -> void:
+	gameover_menu.visible = true
+	upgrade_container.visible = false
 
 func show_upgrade_screen() -> void:
-	upgrade_screen.visible = true
+	upgrade_container.visible = true
 
-func handle_upgrade_selection(upgrade_index: int) -> void:
-	upgrade_selected.emit(upgrade_index)
-	upgrade_screen.visible = false
+func handle_upgrade_selection(upgrade_id: String) -> void:
+	upgrade_selected.emit(upgrade_id)
+	upgrade_container.visible = false

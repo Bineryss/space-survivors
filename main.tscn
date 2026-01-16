@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dfuqottnatk4c"]
+[gd_scene load_steps=41 format=3 uid="uid://dfuqottnatk4c"]
 
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
@@ -9,18 +9,20 @@
 [ext_resource type="Script" uid="uid://c10pbiwdrdkls" path="res://systems/arsenal/strategies/despawn/despawn_distance.gd" id="4_ycdy4"]
 [ext_resource type="Script" uid="uid://cy5bynh5opdcu" path="res://systems/arsenal/strategies/impact/impact_sub_instances.gd" id="6_1u8w0"]
 [ext_resource type="Resource" uid="uid://y0k3oppkljwe" path="res://systems/globals/colors/player_base_color.tres" id="6_2cqfq"]
+[ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="6_vivmo"]
 [ext_resource type="Script" uid="uid://dwpkl6dsnd207" path="res://systems/arsenal/strategies/impact/impact_pircing.gd" id="7_0odxb"]
 [ext_resource type="Script" uid="uid://bvnf27hwmnk3m" path="res://systems/arsenal/core/weapon_data.gd" id="7_2cqfq"]
 [ext_resource type="Script" uid="uid://bp41sbeejki6q" path="res://systems/arsenal/strategies/target/target_nearest_enemy.gd" id="8_ycdy4"]
 [ext_resource type="Script" uid="uid://45esyuc5md05" path="res://systems/arsenal/strategies/trajectory/trajectory_homing.gd" id="9_w48qg"]
 [ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="10_lswn8"]
-[ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="11_a6jrf"]
+[ext_resource type="Script" uid="uid://dw1px2bffwx4t" path="res://systems/arsenal/strategies/spawn/spaw_salvo.gd" id="10_ycdy4"]
 [ext_resource type="Script" uid="uid://ynac6ea0lf2e" path="res://systems/entities/enemy/enemy_data.gd" id="11_w48qg"]
 [ext_resource type="Script" uid="uid://c4t3ib64mb8fb" path="res://systems/arsenal/strategies/spawn/spawn_single.gd" id="12_0odxb"]
 [ext_resource type="Resource" uid="uid://frno1h07hbde" path="res://systems/entities/enemy/t1_enemy.tres" id="13_2cqfq"]
 [ext_resource type="Resource" uid="uid://b4rny5kk42eoa" path="res://systems/entities/enemy/t2_enemy.tres" id="14_yaehf"]
 [ext_resource type="Script" uid="uid://ofwqnrxi8rjy" path="res://systems/entities/pickups/pickup_spawner.gd" id="19_82xsv"]
 [ext_resource type="PackedScene" uid="uid://erdjiyc0bjhj" path="res://systems/entities/pickups/scrap.tscn" id="20_getpj"]
+[ext_resource type="Script" uid="uid://cwut0xf1hqjf3" path="res://upgrade_service.gd" id="22_ryguw"]
 [ext_resource type="Script" uid="uid://c1ps5vaqnusa0" path="res://systems/globals/stat_service.gd" id="24_1u8w0"]
 [ext_resource type="Script" uid="uid://cxj3ivqd123h1" path="res://game_manager.gd" id="25_lswn8"]
 [ext_resource type="PackedScene" uid="uid://b7iagtbuc8kd1" path="res://systems/ui/game_ui.tscn" id="26_a6jrf"]
@@ -29,43 +31,10 @@
 script = ExtResource("4_ycdy4")
 metadata/_custom_type_script = "uid://c10pbiwdrdkls"
 
-[sub_resource type="Resource" id="Resource_qsp4k"]
-script = ExtResource("4_ycdy4")
-max_distance = 500.0
-metadata/_custom_type_script = "uid://c10pbiwdrdkls"
-
-[sub_resource type="Resource" id="Resource_kq58d"]
-script = ExtResource("7_0odxb")
-damage_amount = 1.0
-metadata/_custom_type_script = "uid://dwpkl6dsnd207"
-
-[sub_resource type="Resource" id="Resource_seu75"]
-script = ExtResource("10_lswn8")
-pellet_count = 10
-arc_degrees = 290.0
-metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
-
-[sub_resource type="Resource" id="Resource_htxhm"]
-script = ExtResource("11_a6jrf")
-speed = 500
-metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
-
-[sub_resource type="Resource" id="Resource_jq2sk"]
-script = ExtResource("7_2cqfq")
-attack_actor_scene = ExtResource("3_w48qg")
-projectile_color = ExtResource("6_2cqfq")
-collision_masks = 144
-spawn_strategy = SubResource("Resource_seu75")
-trajectory_strategy = SubResource("Resource_htxhm")
-impact_strategy = SubResource("Resource_kq58d")
-despawn_strategy = SubResource("Resource_qsp4k")
-metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
-
-[sub_resource type="Resource" id="Resource_4k2k6"]
-script = ExtResource("6_1u8w0")
-sub_pellet = SubResource("Resource_jq2sk")
-damage_amount = 5.0
-metadata/_custom_type_script = "uid://cy5bynh5opdcu"
+[sub_resource type="Resource" id="Resource_getpj"]
+script = ExtResource("6_vivmo")
+damage_amount = 2.0
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
 
 [sub_resource type="Resource" id="Resource_lswn8"]
 script = ExtResource("12_0odxb")
@@ -79,6 +48,7 @@ metadata/_custom_type_script = "uid://bp41sbeejki6q"
 
 [sub_resource type="Resource" id="Resource_vivmo"]
 script = ExtResource("9_w48qg")
+steer_force = 1000.0
 max_speed = 800.0
 metadata/_custom_type_script = "uid://45esyuc5md05"
 
@@ -90,9 +60,55 @@ collision_masks = 144
 target_strategy = SubResource("Resource_2cqfq")
 spawn_strategy = SubResource("Resource_lswn8")
 trajectory_strategy = SubResource("Resource_vivmo")
-impact_strategy = SubResource("Resource_4k2k6")
+impact_strategy = SubResource("Resource_getpj")
 despawn_strategy = SubResource("Resource_cegan")
 metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
+
+[sub_resource type="Resource" id="Resource_a6jrf"]
+script = ExtResource("10_ycdy4")
+metadata/_custom_type_script = "uid://dw1px2bffwx4t"
+
+[sub_resource type="Resource" id="Resource_qsp4k"]
+script = ExtResource("4_ycdy4")
+max_distance = 800.0
+metadata/_custom_type_script = "uid://c10pbiwdrdkls"
+
+[sub_resource type="Resource" id="Resource_kq58d"]
+script = ExtResource("7_0odxb")
+damage_amount = 2.0
+metadata/_custom_type_script = "uid://dwpkl6dsnd207"
+
+[sub_resource type="Resource" id="Resource_seu75"]
+script = ExtResource("10_lswn8")
+pellet_count = 10
+arc_degrees = 110.0
+metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+
+[sub_resource type="Resource" id="Resource_htxhm"]
+script = ExtResource("8_ycdy4")
+metadata/_custom_type_script = "uid://bp41sbeejki6q"
+
+[sub_resource type="Resource" id="Resource_jq2sk"]
+script = ExtResource("9_w48qg")
+steer_force = 800.0
+metadata/_custom_type_script = "uid://45esyuc5md05"
+
+[sub_resource type="Resource" id="Resource_4k2k6"]
+script = ExtResource("7_2cqfq")
+attack_actor_scene = ExtResource("3_w48qg")
+projectile_color = ExtResource("6_2cqfq")
+collision_masks = 16
+target_strategy = SubResource("Resource_htxhm")
+spawn_strategy = SubResource("Resource_seu75")
+trajectory_strategy = SubResource("Resource_jq2sk")
+impact_strategy = SubResource("Resource_kq58d")
+despawn_strategy = SubResource("Resource_qsp4k")
+metadata/_custom_type_script = "uid://bvnf27hwmnk3m"
+
+[sub_resource type="Resource" id="Resource_0rl1p"]
+script = ExtResource("6_1u8w0")
+sub_pellet = SubResource("Resource_4k2k6")
+metadata/_custom_type_script = "uid://cy5bynh5opdcu"
 
 [node name="Game" type="Node"]
 
@@ -160,3 +176,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 script = ExtResource("24_1u8w0")
 metadata/_custom_type_script = "uid://c1ps5vaqnusa0"
+
+[node name="UpgradeService" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("22_ryguw")
+player = NodePath("../Player")
+upgrade_b = SubResource("Resource_a6jrf")
+upgrade_c = SubResource("Resource_0rl1p")

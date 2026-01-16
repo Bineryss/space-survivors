@@ -16,11 +16,15 @@ func _ready() -> void:
 	SignalBus.player_hurt.connect(_on_player_hurt)
 	call_deferred("reset_ui")
 	game_ui.upgrade_selected.connect(handle_upgrade_selection)
+	game_ui.restart_game_requested.connect(_handle_restart)
 
-func _on_player_died() -> void:
-	print(statistics_service.stats)
+func _handle_restart() -> void:
 	reset_ui()
 	get_tree().reload_current_scene()
+	
+func _on_player_died() -> void:
+	print(statistics_service.stats)
+	game_ui.show_game_over_screen()
 
 func _on_pickup_collected() -> void:
 	pickups_collected += 1
@@ -59,7 +63,10 @@ func reset_ui() -> void:
 	game_ui.kill_count = enemy_destroyed_count
 	game_ui.current_health = 1.0
 	game_ui.current_level_progress = 0.0
+	game_ui.upgrade_container.visible = false
+	game_ui.gameover_menu.visible = false
 
-func handle_upgrade_selection(upgrade_index: int) -> void:
+func handle_upgrade_selection(upgrade_id: String) -> void:
 	get_tree().paused = false
-	print("Upgrade selected: %d" % upgrade_index)
+	print("Upgrade selected: %s" % upgrade_id)
+	SignalBus.upgrade_selected.emit(upgrade_id)

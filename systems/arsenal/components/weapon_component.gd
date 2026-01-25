@@ -2,9 +2,15 @@ extends Node2D
 class_name WeaponComponent
 
 @export var projectile_root: Node2D
-@export var weapon_data: WeaponData
+@export var weapon_config: WeaponConfig
+
+var weapon_data: WeaponData
 
 var is_shooting: bool = false
+
+func _ready() -> void:
+	if weapon_config != null:
+		weapon_data = weapon_config.get_data()
 
 func init(projectile_rootP: Node2D, weapon_dataP: WeaponData) -> void:
 	self.projectile_root = projectile_rootP

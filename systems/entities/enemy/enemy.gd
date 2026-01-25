@@ -16,7 +16,7 @@ func init(data: EnemyData, projectile_rootP: Node2D) -> void:
 func _ready() -> void:
 	state_machine.init(self)
 	health_component.init(enemy_data.base_health)
-	weapon_component.init(projectile_root, enemy_data.weapon_data)
+	weapon_component.init(projectile_root, enemy_data.weapon_data.get_data())
 	sprite.frame = enemy_data.enemy_sprite
 	sprite.modulate = enemy_data.enemy_color
 

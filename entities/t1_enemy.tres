@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=14 format=3 uid="uid://b4rny5kk42eoa"]
+
+[ext_resource type="Script" uid="uid://compgftkslt68" path="res://systems/arsenal/core/weapon_config.gd" id="1_nw4b3"]
+[ext_resource type="Script" uid="uid://ynac6ea0lf2e" path="res://systems/entities/enemy/enemy_data.gd" id="1_vs6ry"]
+[ext_resource type="PackedScene" uid="uid://box6kuu6ld7em" path="res://systems/arsenal/weapons/simple_bullet.tscn" id="2_be6iy"]
+[ext_resource type="Script" uid="uid://c10pbiwdrdkls" path="res://systems/arsenal/strategies/despawn/despawn_distance.gd" id="3_6fw20"]
+[ext_resource type="Script" uid="uid://bdoewlc07q7io" path="res://systems/arsenal/strategies/impact/impact_simple_damage.gd" id="4_i1jf4"]
+[ext_resource type="Resource" uid="uid://bal46sos7pgmp" path="res://systems/globals/colors/enemy_color.tres" id="5_mqp28"]
+[ext_resource type="Script" uid="uid://c4t3ib64mb8fb" path="res://systems/arsenal/strategies/spawn/spawn_single.gd" id="7_1m13b"]
+[ext_resource type="Script" uid="uid://cdkmosuqvjfmb" path="res://systems/arsenal/strategies/trajectory/trajectory_straight.gd" id="8_4adif"]
+
+[sub_resource type="Resource" id="Resource_3pgjq"]
+script = ExtResource("3_6fw20")
+metadata/_custom_type_script = "uid://c10pbiwdrdkls"
+
+[sub_resource type="Resource" id="Resource_0v7oa"]
+script = ExtResource("4_i1jf4")
+damage_amount = 1.0
+metadata/_custom_type_script = "uid://bdoewlc07q7io"
+
+[sub_resource type="Resource" id="Resource_jj6vn"]
+script = ExtResource("7_1m13b")
+metadata/_custom_type_script = "uid://c4t3ib64mb8fb"
+
+[sub_resource type="Resource" id="Resource_uxpei"]
+script = ExtResource("8_4adif")
+speed = 600
+metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
+
+[sub_resource type="Resource" id="Resource_hkebh"]
+script = ExtResource("1_nw4b3")
+attack_actor_scene = ExtResource("2_be6iy")
+projectile_color = ExtResource("5_mqp28")
+collision_masks = 21
+spawn_strategy = SubResource("Resource_jj6vn")
+trajectory_strategy = SubResource("Resource_uxpei")
+impact_strategy = SubResource("Resource_0v7oa")
+despawn_strategy = SubResource("Resource_3pgjq")
+metadata/_custom_type_script = "uid://compgftkslt68"
+
+[resource]
+script = ExtResource("1_vs6ry")
+enemy_sprite = 2
+base_health = 5
+base_speed = 600.0
+weapon_data = SubResource("Resource_hkebh")
+metadata/_custom_type_script = "uid://ynac6ea0lf2e"

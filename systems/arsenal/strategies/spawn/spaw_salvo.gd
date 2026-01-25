@@ -6,8 +6,7 @@ class_name SpawnSalvo
 
 func execute(spawn_params: SpawnParams, data: WeaponData) -> void:
 	for i in pellets:
-		if is_instance_valid(spawn_params.muzzle_global): return
-
+		if not is_instance_valid(spawn_params.muzzle_global): return
 		_spawn_attack_actor(spawn_params, data)
 
 		if i < pellets - 1:

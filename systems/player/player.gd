@@ -8,7 +8,7 @@ class_name PlayerControler
 @export var angular_speed := 5
 
 @export_group("Arsenal")
-@export var weapon_data: WeaponData = null
+@export var weapon_config: WeaponConfig = null
 @export var bullet_root: Node2D = null
 
 @onready var weapon_component: WeaponComponent = %WeaponComponent
@@ -19,7 +19,7 @@ var deceleration : float
 func _ready() -> void:
 	acceleration = max_speed / time_to_max
 	deceleration = max_speed / time_to_stop
-	weapon_component.init(bullet_root, weapon_data)
+	weapon_component.init(bullet_root, weapon_config.get_data())
 
 func _physics_process(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")

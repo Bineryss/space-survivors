@@ -31,7 +31,9 @@ func try_shoot() -> void:
 
 	var target: Node2D = null
 	if target_strategy != null:
+		print("Using target strategy to get target")
 		target = target_strategy.get_target(self)
+		print("Acquired target: %s" % str(target))
 	
 	var spawn_params: SpawnParams = SpawnParams.with_target(self, projectile_root, target)
 	await spawn_strategy.execute(spawn_params, weapon_data) # await is correct here, problem with gdscript

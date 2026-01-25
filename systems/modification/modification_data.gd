@@ -43,6 +43,4 @@ func recalculate_cached_values() -> void:
 		if modification.stat_operation == Modification.ModificationType.ADD:
 			cached_add_value += modification.stat_value
 		elif modification.stat_operation == Modification.ModificationType.MULTIPLY:
-			cached_multiply_value *= modification.stat_value
-	
-	print("Recalculated modification data for property %s: add %f, multiply %f" % [ModifiableProperty.WeaponPropertyKey.keys()[target_property], cached_add_value, cached_multiply_value])
+			cached_multiply_value += modification.stat_value

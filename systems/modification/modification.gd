@@ -18,6 +18,9 @@ enum ModificationType {
 @export var name: String
 @export var description: String
 
+
+@export var modifications: Array[AtomicModification] = []
+
 @export_group("Modification Effect")
 @export var stat_operation: ModificationType
 @export var target_prop: ModifiableProperty.WeaponPropertyKey

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dfuqottnatk4c"]
+[gd_scene load_steps=41 format=3 uid="uid://dfuqottnatk4c"]
 
 [ext_resource type="PackedScene" uid="uid://c24gw1inkvfm3" path="res://systems/debug/background.tscn" id="1_lkhdi"]
 [ext_resource type="PackedScene" uid="uid://c7ctubyuwv6hn" path="res://systems/player/player.tscn" id="2_lkhdi"]
@@ -17,9 +17,11 @@
 [ext_resource type="Resource" uid="uid://b4rny5kk42eoa" path="res://entities/t1_enemy.tres" id="14_yaehf"]
 [ext_resource type="Script" uid="uid://ofwqnrxi8rjy" path="res://systems/entities/pickups/pickup_spawner.gd" id="19_82xsv"]
 [ext_resource type="PackedScene" uid="uid://erdjiyc0bjhj" path="res://systems/entities/pickups/scrap.tscn" id="20_getpj"]
+[ext_resource type="Script" uid="uid://bhu81422677yy" path="res://systems/modification/modification_service.gd" id="21_1u8w0"]
 [ext_resource type="Script" uid="uid://cq30v2n4koddw" path="res://systems/modification/modification.gd" id="22_d13ii"]
-[ext_resource type="Script" uid="uid://cwut0xf1hqjf3" path="res://upgrade_service.gd" id="22_ryguw"]
+[ext_resource type="Script" uid="uid://45esyuc5md05" path="res://systems/arsenal/strategies/trajectory/trajectory_homing.gd" id="23_0odxb"]
 [ext_resource type="Script" uid="uid://fgpcbb7iwjpw" path="res://systems/arsenal/strategies/spawn/spawn_spread.gd" id="23_d13ii"]
+[ext_resource type="Script" uid="uid://cqknr246oe8nx" path="res://systems/modification/atomic_modification.gd" id="23_lswn8"]
 [ext_resource type="Script" uid="uid://c1ps5vaqnusa0" path="res://systems/globals/stat_service.gd" id="24_1u8w0"]
 [ext_resource type="Script" uid="uid://cxj3ivqd123h1" path="res://game_manager.gd" id="25_lswn8"]
 [ext_resource type="PackedScene" uid="uid://b7iagtbuc8kd1" path="res://systems/ui/game_ui.tscn" id="26_a6jrf"]
@@ -37,11 +39,6 @@ metadata/_custom_type_script = "uid://bdoewlc07q7io"
 script = ExtResource("10_ycdy4")
 metadata/_custom_type_script = "uid://dw1px2bffwx4t"
 
-[sub_resource type="Resource" id="Resource_lswn8"]
-script = ExtResource("8_ycdy4")
-target_layers = 144
-metadata/_custom_type_script = "uid://bp41sbeejki6q"
-
 [sub_resource type="Resource" id="Resource_ryguw"]
 script = ExtResource("10_getpj")
 metadata/_custom_type_script = "uid://cdkmosuqvjfmb"
@@ -51,7 +48,6 @@ script = ExtResource("3_yaehf")
 attack_actor_scene = ExtResource("3_w48qg")
 projectile_color = ExtResource("6_2cqfq")
 collision_masks = 144
-target_strategy = SubResource("Resource_lswn8")
 spawn_strategy = SubResource("Resource_0odxb")
 trajectory_strategy = SubResource("Resource_ryguw")
 impact_strategy = SubResource("Resource_1u8w0")
@@ -60,24 +56,68 @@ metadata/_custom_type_script = "uid://compgftkslt68"
 
 [sub_resource type="Resource" id="Resource_a6jrf"]
 script = ExtResource("22_d13ii")
+name = "+ 20% bullet spead"
+modifications = null
 stat_operation = 1
-stat_value = 2.0
+stat_value = 0.2
 metadata/_custom_type_script = "uid://cq30v2n4koddw"
 
+[sub_resource type="Resource" id="Resource_jq2sk"]
+script = ExtResource("8_ycdy4")
+target_layers = 145
+metadata/_custom_type_script = "uid://bp41sbeejki6q"
+
+[sub_resource type="Resource" id="Resource_4k2k6"]
+script = ExtResource("23_lswn8")
+stat_operation = 2
+target_prop = 5
+replacement_strategy = SubResource("Resource_jq2sk")
+metadata/_custom_type_script = "uid://cqknr246oe8nx"
+
+[sub_resource type="Resource" id="Resource_0rl1p"]
+script = ExtResource("23_0odxb")
+metadata/_custom_type_script = "uid://45esyuc5md05"
+
+[sub_resource type="Resource" id="Resource_ok6jj"]
+script = ExtResource("23_lswn8")
+stat_operation = 2
+target_prop = 2
+replacement_strategy = SubResource("Resource_0rl1p")
+metadata/_custom_type_script = "uid://cqknr246oe8nx"
+
 [sub_resource type="Resource" id="Resource_xuqvo"]
-script = ExtResource("23_d13ii")
-arc_degrees = 35.0
-metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+script = ExtResource("23_0odxb")
+steer_force = 5000.0
+max_speed = 150.0
+metadata/_custom_type_script = "uid://45esyuc5md05"
 
 [sub_resource type="Resource" id="Resource_qsp4k"]
 script = ExtResource("22_d13ii")
+name = "Homing Missile"
+modifications = Array[ExtResource("23_lswn8")]([SubResource("Resource_4k2k6"), SubResource("Resource_ok6jj")])
 stat_operation = 2
-target_prop = 3
+target_prop = 2
 replacement_strategy = SubResource("Resource_xuqvo")
 metadata/_custom_type_script = "uid://cq30v2n4koddw"
 
 [sub_resource type="Resource" id="Resource_kq58d"]
+script = ExtResource("23_d13ii")
+arc_degrees = 45.0
+metadata/_custom_type_script = "uid://fgpcbb7iwjpw"
+
+[sub_resource type="Resource" id="Resource_seu75"]
 script = ExtResource("22_d13ii")
+name = "Spread Shot"
+modifications = null
+stat_operation = 2
+target_prop = 3
+replacement_strategy = SubResource("Resource_kq58d")
+metadata/_custom_type_script = "uid://cq30v2n4koddw"
+
+[sub_resource type="Resource" id="Resource_htxhm"]
+script = ExtResource("22_d13ii")
+name = "+ 2 impact damager"
+modifications = null
 target_prop = 1
 stat_value = 2.0
 metadata/_custom_type_script = "uid://cq30v2n4koddw"
@@ -152,9 +192,9 @@ script = ExtResource("24_1u8w0")
 metadata/_custom_type_script = "uid://c1ps5vaqnusa0"
 
 [node name="UpgradeService" type="Node" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("22_ryguw")
+script = ExtResource("21_1u8w0")
 player = NodePath("../Player")
-modifications = Array[ExtResource("22_d13ii")]([SubResource("Resource_a6jrf"), SubResource("Resource_qsp4k"), SubResource("Resource_kq58d")])
+modifications = Array[ExtResource("22_d13ii")]([SubResource("Resource_a6jrf"), SubResource("Resource_qsp4k"), SubResource("Resource_seu75"), SubResource("Resource_htxhm")])
 
 [node name="Scrap" parent="." instance=ExtResource("20_getpj")]
 position = Vector2(587, -377)

@@ -25,7 +25,7 @@ func _ready() -> void:
 func init_from(fire_ctx: FireContext, weapon_data: WeaponData) -> void:
 	_ctx = fire_ctx
 	_impact = weapon_data.impact_strategy
-	_trajectory = weapon_data.trajectory_strategy
+	_trajectory = ModificationMapper.get_trajectory_strategy(weapon_data.active_modifications)
 	_despawnS = weapon_data.despawn_strategy
 	_data = weapon_data
 	collision_enabled = false

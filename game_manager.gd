@@ -46,13 +46,14 @@ func _on_player_hurt(current_health: float) -> void:
 
 
 func calculate_required_xp(next_level: int) -> int:
+	return 1; 
 	# Vampire Survivors formula
-	if next_level < 20:
-		return (next_level * 10) - 5
-	elif next_level < 40:
-		return (next_level * 13) - 6
-	else:
-		return (next_level * 16) - 8
+	# if next_level < 20:
+	# 	return (next_level * 10) - 5
+	# elif next_level < 40:
+	# 	return (next_level * 13) - 6
+	# else:
+	# 	return (next_level * 16) - 8
 
 
 func reset_ui() -> void:

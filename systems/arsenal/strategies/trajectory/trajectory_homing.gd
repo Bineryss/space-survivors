@@ -13,7 +13,7 @@ func step(attack_actor: Node2D, delta: float, ctx: FireContext, data: WeaponData
 	var target = ctx.target
 	
 	if not ctx.data.has("velocity"):
-		ctx.data["velocity"] = attack_actor.transform.x * max_speed
+		ctx.data["velocity"] = attack_actor.transform.x * _calc_max_speed(data)
 		ctx.data["acceleration"] = Vector2.ZERO
 	
 	var velocity: Vector2 = ctx.data["velocity"]
@@ -25,15 +25,21 @@ func step(attack_actor: Node2D, delta: float, ctx: FireContext, data: WeaponData
 		return
 	
 	var acceleration: Vector2 = ctx.data["acceleration"]
-	var desired_velocity = (target.global_position - attack_actor.global_position).normalized() * max_speed
+	var desired_velocity = (target.global_position - attack_actor.global_position).normalized() * _calc_max_speed(data)
 	var steer = (desired_velocity - velocity).limit_length(steer_force)
 	
 	acceleration += steer
 	velocity += acceleration * delta
-	velocity = velocity.limit_length(max_speed)
+	velocity = velocity.limit_length(_calc_max_speed(data))
 	
 	attack_actor.global_position += velocity * delta
 	attack_actor.rotation = velocity.angle()
 	
 	ctx.data["velocity"] = velocity
 	ctx.data["acceleration"] = Vector2.ZERO
+
+func _calc_max_speed(data: WeaponData) -> float:
+	var base_speed = max_speed
+	if data.active_stat_modifications.has(ModifiableProperty.WeaponPropertyKey.PROJECTILE_SPEED):
+		base_speed += data.active_stat_modifications[ModifiableProperty.WeaponPropertyKey.PROJECTILE_SPEED]
+	return base_speed

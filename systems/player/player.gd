@@ -15,11 +15,13 @@ class_name PlayerControler
 
 var acceleration : float
 var deceleration : float
+var weapon_data: WeaponData
 
 func _ready() -> void:
 	acceleration = max_speed / time_to_max
 	deceleration = max_speed / time_to_stop
-	weapon_component.init(bullet_root, weapon_config.get_data())
+	weapon_data = weapon_config.get_data()
+	weapon_component.init(bullet_root, weapon_data)
 
 func _physics_process(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -32,6 +34,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	handle_mouse_aim(delta)
 
+func change_weapon(new_weapon_data: WeaponData) -> void:
+	weapon_component.init(bullet_root, new_weapon_data)
 
 func handle_mouse_aim(delta: float) -> void:
 	var target_angle = (get_global_mouse_position() - global_position).angle()
